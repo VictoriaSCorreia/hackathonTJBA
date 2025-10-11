@@ -71,6 +71,13 @@ make revision
     }
     ```
 
+- Healthcheck
+  - `GET /api/v1/health`
+  - Resposta 200
+    ```json
+    { "status": "ok" }
+    ```
+
 ## Testando rápido via curl
 
 1) Criar um convidado
@@ -101,3 +108,85 @@ curl -s --cookie "guest_id=$GUEST_ID" http://localhost:8000/api/v1/me | jq
 - Falha ao construir imagem por `apt-get update` (HTTP 403):
   - Tente novamente o `docker compose build api` após alguns minutos (intermitência do mirror).
   - Opcionalmente troque mirrors Debian no `Dockerfile` se persistir.
+
+## Agente Jurídico (Chat)
+
+- `POST /api/v1/chat`
+  - Body:
+    ```json
+    { "user_message": "Comprei um produto com defeito, o que faço?", "conversation_id": "opcional" }
+    ```
+  - Resposta 200:
+    ```json
+    {
+      "response_text": "...resposta do agente...",
+      "citations": [ { "title": "...", "url": "..." } ],
+      "conversation_id": "local-thread"
+    }
+    ```
+  - Exemplo curl:
+    ```bash
+    curl -s -X POST \
+      -H "Content-Type: application/json" \
+      -d '{"user_message":"Comprei um produto com defeito, o que faço?"}' \
+      http://localhost:8000/api/v1/chat | jq
+    ```
+
+### Configuração
+- Defina `COHERE_API_KEY` no ambiente do serviço `api`.
+- Opcional: `KB_DIR` (padrão `./kb`), diretório com arquivos `.json`.
+
+Formato esperado dos arquivos JSON (lista ou objeto único):
+```json
+{
+  "title": "Como ingressar com ação de alimentos",
+  "content": "Passos, documentos necessários, prazos...",
+  "url": "https://exemplo.gov.br/guia-alimentos",
+  "jurisdiction": "BR",
+  "updated_at": "2025-07-15",
+  "tags": ["família", "alimentos", "processo"]
+}
+```
+
+Observações:
+- O agente usa RAG local por palavras-chave (simples) para selecionar trechos relevantes da KB e envia para o modelo da Cohere (Command-R+).
+- Se `KB_DIR` estiver vazio, uma KB mínima de fallback é usada.
+- As respostas são meramente informativas e não substituem aconselhamento jurídico profissional.
+
+## Conversas (planejados)
+
+Agora implementados para orquestrar threads de conversa do chat.
+
+- Criar conversa
+  - `POST /api/v1/conversations`
+  - Requer convidado atual: envie `X-Guest-Id: <guest_id>`
+  - Body (opcional):
+    ```json
+    { "title": "Atendimento consumidor" }
+    ```
+  - Resposta 201:
+    ```json
+    { "id": 1, "guest_id": "<guest>", "title": "Atendimento consumidor", "created_at": "..." }
+    ```
+
+- Enviar mensagem numa conversa (dispara resposta do agente quando `role=user`)
+  - `POST /api/v1/conversations/{conversation_id}/messages`
+  - Requer convidado atual: envie `X-Guest-Id: <guest_id>`
+  - Body:
+    ```json
+    { "role": "user", "content": "Minha conta foi negativada indevidamente." }
+    ```
+  - Resposta 200 (retorna a mensagem gravada; se `role=user`, a resposta será a do `assistant`):
+    ```json
+    { "id": 10, "conversation_id": 1, "role": "assistant", "content": "...resposta...", "created_at": "..." }
+    ```
+
+- Listar conversas
+  - `GET /api/v1/conversations`
+  - Requer convidado atual: envie `X-Guest-Id: <guest_id>`
+
+- Obter detalhes de uma conversa (inclui histórico)
+  - `GET /api/v1/conversations/{conversation_id}`
+  - Requer convidado atual: envie `X-Guest-Id: <guest_id>`
+
+Observação: o endpoint `/api/v1/chat` continua disponível para uso stateless; para experiências com histórico, prefira as rotas de conversas.
