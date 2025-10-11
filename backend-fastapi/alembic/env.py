@@ -1,13 +1,26 @@
 from logging.config import fileConfig
+import os
+import sys
 from sqlalchemy import engine_from_config, pool
 from alembic import context
+
+# Ensure project root is on sys.path so `app` is importable when running Alembic
+CURRENT_DIR = os.path.dirname(__file__)
+PROJECT_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, os.pardir))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
 from app.core.config import settings
 from app.db.base import SQLModel
 from app.models import user  # noqa: F401
 
 config = context.config
 if config.config_file_name is not None:
-    fileConfig(config.config_file_name)
+    try:
+        fileConfig(config.config_file_name)
+    except Exception:
+        # If logging config sections are missing, skip configuring logging
+        pass
 
 target_metadata = SQLModel.metadata
 
