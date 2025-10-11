@@ -1,10 +1,18 @@
 FROM python:3.12-slim
-ENV POETRY_VERSION=1.8.3 PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
-RUN apt-get update && apt-get install -y build-essential curl && rm -rf /var/lib/apt/lists/*
-RUN curl -sSL https://install.python-poetry.org | python3 - && ln -s /root/.local/bin/poetry /usr/local/bin/poetry
+
+
+ENV PYTHONDONTWRITEBYTECODE=1  PYTHONUNBUFFERED=1  POETRY_VIRTUALENVS_CREATE=false
+
+RUN python -m pip install --no-cache-dir --upgrade pip setuptools wheel && python -m pip install --no-cache-dir "poetry==1.8.3" && poetry --version
+
 WORKDIR /app
+
 COPY pyproject.toml poetry.lock* /app/
+
 RUN poetry install --no-root --no-interaction --no-ansi
+
 COPY . /app
+
 EXPOSE 8000
+
 CMD ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
