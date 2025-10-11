@@ -1,11 +1,9 @@
-from pydantic import BaseModel, EmailStr, ConfigDict
+from pydantic import BaseModel, ConfigDict
+
 
 class UserBase(BaseModel):
-    email: EmailStr
-    full_name: str
+    guest_id: str
 
-class UserCreate(UserBase):
-    pass
 
 class UserRead(UserBase):
     id: int

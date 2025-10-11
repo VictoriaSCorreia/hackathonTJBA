@@ -31,7 +31,7 @@ logs/
     ".env.example": """APP_ENV=dev
 SECRET_KEY=change-me
 ACCESS_TOKEN_EXPIRE_MINUTES=60
-DATABASE_URL=postgresql+psycopg://app:app@localhost:5432/app
+DATABASE_URL=postgresql+viczinha02://app:app@localhost:5432/app
 """,
 
     "pyproject.toml": """[tool.poetry]
@@ -105,7 +105,7 @@ CMD ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", 
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgresql+psycopg://app:app@db:5432/app
+      - DATABASE_URL=postgresql+viczinha02://app:app@db:5432/app
       - APP_ENV=dev
     ports:
       - "8000:8000"
