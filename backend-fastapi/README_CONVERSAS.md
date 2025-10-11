@@ -35,9 +35,22 @@ Guia conciso para criar conversas e enviar mensagens no backend.
   ```json
   { "role": "user", "content": "Minha conta foi negativada indevidamente." }
   ```
-- Comportamento:
-  - Quando `role="user"`, o backend chama o agente, salva a sua pergunta e a resposta, e RETORNA a mensagem do `assistant`.
+- Comportamento (política de 2 etapas):
+  - Etapa A (início): ao receber `role="user"`, o agente faz RAG, NÃO responde ainda e retorna exatamente 3 perguntas curtas de esclarecimento em um único bloco:
+
+    ```
+    <clarify>
+    Q1: ...
+    Q2: ...
+    Q3: ...
+    ```
+
+  - Etapa B (fechamento): quando o usuário responder (novo `role="user"` em seguida), o agente faz novo RAG com base em {U0, Q1–Q3, U1} e entrega a resposta final (sem novas perguntas).
+
+  - Se o usuário ignorar as perguntas e mudar de assunto, o agente recomeça uma nova Etapa A.
+
   - Para `role="assistant"`, apenas grava a mensagem e retorna a própria mensagem gravada.
+
 - Exemplo (`role=user`):
   ```bash
   CONV_ID=1
@@ -69,4 +82,5 @@ Guia conciso para criar conversas e enviar mensagens no backend.
 - Endpoints implementados em: `backend-fastapi/app/api/v1/routes/conversations.py`
 - Serviço de persistência: `backend-fastapi/app/services/conversation_service.py`
 - Modelos: `backend-fastapi/app/models/conversation.py`
-- Para chat sem histórico, há também `POST /api/v1/chat` (stateless).
+- Para chat sem histórico, há também `POST /api/v1/chat` (stateless) com a mesma política de 2 etapas — veja `backend-fastapi/README_TWO_STEPS.md`.
+

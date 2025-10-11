@@ -20,6 +20,7 @@ from typing import Any, Dict, List, Optional
 
 import cohere
 from app.core.config import settings
+from textwrap import dedent
 
 
 # --------------------------- Helpers de texto/tempo ---------------------------
@@ -250,3 +251,154 @@ def call_model(
         "text": text,
         "citations": citations,
     }
+
+
+# --------------------------- Two-step policy helpers ---------------------------
+def _ensure_max_len(s: str, max_len: int = 240) -> str:
+    s = re.sub(r"\s+", " ", s).strip()
+    return s[: max_len].rstrip()
+
+
+def build_clarify_prompt(user_message: str) -> str:
+    """Prompt para gerar exatamente 3 perguntas de esclarecimento.
+
+    O modelo recebe os `documents` via parâmetro de `call_model`, então aqui apenas
+    instruímos o comportamento e o formato de saída.
+    """
+    prompt = dedent(
+        f"""
+        Você é um assistente útil.
+        Tarefa: Faça exatamente 3 perguntas de esclarecimento antes de responder.
+        Regras:
+        - Não responda ainda.
+        - Perguntas objetivas, não redundantes, focadas no objetivo do usuário e no que foi recuperado do RAG.
+
+        Mensagem do usuário (U0):
+        {user_message}
+
+        Formato de saída:
+        <clarify>
+        Q1: ...
+        Q2: ...
+        Q3: ...
+        """
+    ).strip()
+    return prompt
+
+
+def _extract_questions_from_text(text: str) -> list[str]:
+    """Extrai até 3 perguntas do texto retornado pelo modelo.
+
+    Preferência:
+    - Linhas iniciando com Q1:/Q2:/Q3:
+    - Caso não encontre, pega as 3 primeiras frases com '?'
+    - Faz limpeza e truncamento
+    """
+    lines = [l.strip() for l in text.splitlines() if l.strip()]
+    qmap: dict[str, str] = {}
+    for ln in lines:
+        m = re.match(r"^Q([123])\s*:\s*(.+)$", ln, flags=re.IGNORECASE)
+        if m:
+            idx = m.group(1)
+            qtext = _ensure_max_len(m.group(2))
+            if qtext.endswith("?") is False:
+                qtext += "?"
+            qmap[idx] = qtext
+    qs: list[str] = [qmap.get("1"), qmap.get("2"), qmap.get("3")]
+    if all(qs):
+        return [q for q in qs if q]
+
+    # fallback: coletar frases com '?'
+    candidates: list[str] = []
+    blob = " ".join(lines)
+    # quebrar em sentenças rudimentarmente
+    for part in re.split(r"(?<=[\?])\s+", blob):
+        part = part.strip()
+        if not part:
+            continue
+        if part.endswith("?"):
+            candidates.append(_ensure_max_len(part))
+        if len(candidates) >= 3:
+            break
+    # se ainda insuficiente, crie perguntas genéricas úteis
+    while len(candidates) < 3:
+        default_qs = [
+            "Qual é o seu objetivo específico com este pedido?",
+            "Em qual jurisdição/estado isso se aplica?",
+            "Há prazos, valores ou documentos relevantes que devamos considerar?",
+        ]
+        for dq in default_qs:
+            if len(candidates) < 3:
+                candidates.append(dq)
+    return candidates[:3]
+
+
+def enforce_three_questions(text: str) -> str:
+    qs = _extract_questions_from_text(text)
+    # garante exatamente 3
+    qs = (qs + [""] * 3)[:3]
+    return "\n".join(["<clarify>", f"Q1: {qs[0]}", f"Q2: {qs[1]}", f"Q3: {qs[2]}"])
+
+
+def parse_q123(clarify_block: str) -> list[str]:
+    """Extrai Q1–Q3 de um bloco começando com <clarify>. Sempre retorna 3 strings."""
+    return _extract_questions_from_text(clarify_block)
+
+
+def build_final_prompt(U0: str, Qs: list[str], U1: str) -> str:
+    qs_fmt = "\n".join([f"Q{i+1}: {q}" for i, q in enumerate(Qs[:3])])
+    prompt = dedent(
+        f"""
+        Você é um assistente útil.
+
+        Contexto:
+        - Objetivo original do usuário (U0):
+        {U0}
+        - Suas 3 perguntas:
+        {qs_fmt}
+        - Respostas do usuário (U1):
+        {U1}
+
+        Tarefa: Com base no RAG mais recente, produza a resposta final.
+        Regras:
+        - Seja direto, acionável e completo.
+        - Não faça novas perguntas.
+        """
+    ).strip()
+    return prompt
+
+
+def combine_for_retrieval(U0: str, Qs: list[str], U1: str) -> str:
+    parts = [U0] + Qs[:3] + [U1]
+    return "\n".join([p for p in parts if p and p.strip()])
+
+
+def is_new_topic(U0: str, Qs: list[str], U1: str) -> bool:
+    """Heurística simples: se a sobreposição de tokens entre (U0+Qs) e U1 for muito baixa,
+    consideramos que o usuário mudou de assunto.
+    """
+    base = f"{U0} \n {' '.join(Qs[:3])}"
+    t_base = set(_tokenize(base))
+    t_u1 = set(_tokenize(U1))
+    if not t_base or not t_u1:
+        return False
+    inter = len(t_base & t_u1)
+    ratio = inter / max(1, len(t_u1))
+    return ratio < 0.15 and len(t_u1) >= 4
+
+
+def generate_clarify_questions(user_message: str, k: int = 5) -> str:
+    """Executa RAG sobre U0 e retorna um bloco <clarify> com Q1–Q3."""
+    documents = rag_retrieve(user_message, k=k)
+    prompt = build_clarify_prompt(user_message)
+    resp = call_model(user_message=prompt, conversation_id=None, documents=documents)
+    return enforce_three_questions(resp.get("text", ""))
+
+
+def generate_final_answer(U0: str, Qs: list[str], U1: str, conversation_id: Optional[str] = None, k: int = 5) -> Dict[str, Any]:
+    """Executa RAG com base em {U0, Qs, U1} e retorna resposta final + citações."""
+    retrieval_query = combine_for_retrieval(U0, Qs, U1)
+    documents = rag_retrieve(retrieval_query, k=k)
+    prompt = build_final_prompt(U0=U0, Qs=Qs, U1=U1)
+    resp = call_model(user_message=prompt, conversation_id=conversation_id, documents=documents)
+    return resp

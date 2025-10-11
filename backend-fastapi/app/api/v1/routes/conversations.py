@@ -11,7 +11,11 @@ from app.schemas.conversation import (
     MessageRead,
 )
 from app.services.conversation_service import ConversationService
-from app.services.legal_agent import rag_retrieve, call_model
+from app.services.legal_agent import (
+    generate_clarify_questions,
+    generate_final_answer,
+    parse_q123,
+)
 
 
 router = APIRouter()
@@ -61,15 +65,62 @@ def post_message(
     if not conv:
         raise HTTPException(status_code=404, detail="Conversation not found")
 
-    # Save user message
-    user_msg = service.add_message(conversation_id=conv.id, role=payload.role, content=payload.content)
+    # Save message
+    saved_msg = service.add_message(conversation_id=conv.id, role=payload.role, content=payload.content)
 
-    # Call agent only when role=user
+    # Only trigger agent when role=user
     if payload.role == "user":
-        documents = rag_retrieve(payload.content, k=5)
-        model_resp = call_model(user_message=payload.content, conversation_id=str(conv.id), documents=documents)
-        assistant_text = model_resp.get("text", "")
-        assistant_msg = service.add_message(conversation_id=conv.id, role="assistant", content=assistant_text)
-        return assistant_msg
+        # Load history to detect clarify/final stage
+        history = service.list_messages(conversation_id=conv.id)
+        # Find the last assistant message before this one
+        last_assistant = None
+        for m in reversed(history):
+            if m.role == "assistant":
+                last_assistant = m
+                break
 
-    return user_msg
+        if last_assistant and isinstance(last_assistant.content, str) and last_assistant.content.strip().startswith("<clarify>"):
+            # Stage B: user answered Q1–Q3 -> produce final answer
+            # U0 = last user message before the clarify block
+            U0 = ""
+            for m in reversed(history):
+                if m.id == last_assistant.id:
+                    # skip messages after clarify
+                    continue
+                if m.created_at >= last_assistant.created_at:
+                    continue
+                if m.role == "user":
+                    U0 = m.content
+                    break
+            if not U0:
+                # fallback to first user message in history
+                for m in history:
+                    if m.role == "user":
+                        U0 = m.content
+                        break
+
+            Qs = parse_q123(last_assistant.content)
+            U1 = payload.content
+
+            # Simple heuristic: if user changed subject entirely, start a new Clarify stage
+            try:
+                from app.services.legal_agent import is_new_topic  # local import to avoid cycles
+
+                if is_new_topic(U0, Qs, U1):
+                    clarify_block = generate_clarify_questions(user_message=U1, k=5)
+                    assistant_msg = service.add_message(conversation_id=conv.id, role="assistant", content=clarify_block)
+                    return assistant_msg
+            except Exception:
+                # If heuristic fails, continue with final answer normally
+                pass
+
+            final = generate_final_answer(U0=U0, Qs=Qs, U1=U1, conversation_id=str(conv.id), k=5)
+            assistant_text = final.get("text", "")
+            assistant_msg = service.add_message(conversation_id=conv.id, role="assistant", content=assistant_text)
+            return assistant_msg
+        else:
+            # Stage A: first pass -> generate 3 clarify questions
+            clarify_block = generate_clarify_questions(user_message=payload.content, k=5)
+            assistant_msg = service.add_message(conversation_id=conv.id, role="assistant", content=clarify_block)
+            return assistant_msg
+    return saved_msg
