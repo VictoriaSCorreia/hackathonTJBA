@@ -189,28 +189,54 @@ def call_model(
     conversation_id: Optional[str],
     documents: Optional[List[Dict[str, Any]]] = None,
 ) -> Dict[str, Any]:
-    messages = [
-        {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": user_message},
-    ]
+    # Adaptado para o SDK Cohere 5.x: usar 'message' e 'preamble' em vez de 'messages'
     kwargs: Dict[str, Any] = {
         "model": "command-r-plus-08-2024",
-        "messages": messages,
-        "tool_choice": "NONE",
+        "message": user_message,
+        "preamble": SYSTEM_PROMPT,
     }
     if documents:
-        kwargs["documents"] = documents
+        # Sanitiza os documentos para o formato esperado pelo SDK Cohere 5.x
+        def _sanitize_documents(docs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+            sanitized: List[Dict[str, Any]] = []
+            for d in docs:
+                nd: Dict[str, Any] = {}
+                # Campos comuns suportados
+                for key in ("title", "snippet", "url"):
+                    if d.get(key) is not None:
+                        nd[key] = str(d.get(key))
+                # Campos adicionais convertidos para string
+                if d.get("jurisdiction") is not None:
+                    nd["jurisdiction"] = str(d.get("jurisdiction"))
+                if d.get("last_updated") is not None:
+                    nd["last_updated"] = str(d.get("last_updated"))
+                if "tags" in d:
+                    tags_val = d.get("tags")
+                    if isinstance(tags_val, list):
+                        nd["tags"] = ", ".join(map(str, tags_val))
+                    else:
+                        nd["tags"] = str(tags_val)
+                sanitized.append(nd)
+            return sanitized
+
+        kwargs["documents"] = _sanitize_documents(documents)
     if conversation_id:
         kwargs["conversation_id"] = conversation_id
 
     co = get_cohere_client()
     resp = co.chat(**kwargs)
 
-    # Extrai texto e citações
+    # Extrai texto e citações de forma compatível com diferentes versões
     text = ""
     citations: List[Dict[str, Any]] = []
     try:
-        text = resp.message.content[0].text if getattr(resp, "message", None) else ""
+        if hasattr(resp, "text") and resp.text:
+            text = resp.text
+        elif getattr(resp, "message", None) and getattr(resp.message, "content", None):
+            # Estrutura mais recente (message.content[0].text)
+            parts = resp.message.content
+            if parts and hasattr(parts[0], "text"):
+                text = parts[0].text
     except Exception:
         text = str(resp)
 
@@ -224,4 +250,3 @@ def call_model(
         "text": text,
         "citations": citations,
     }
-
