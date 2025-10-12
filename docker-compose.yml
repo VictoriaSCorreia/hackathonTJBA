@@ -1,0 +1,45 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: psycopg
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ./backend
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql+psycopg://postgres:psycopg@db:5432/app
+      - APP_ENV=dev
+      # Override at runtime: `COHERE_API_KEY=... docker compose up`
+      - COHERE_API_KEY=0tPz7wM2BM7abQ6DlC2Hfmk3QLPc8Oa9kvXK4lJa
+    ports:
+      - "8000:8000"
+    command: sh -lc "poetry run alembic upgrade head && poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    working_dir: /app
+
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    depends_on:
+      - api
+    environment:
+      # Usado pelo proxy do Vite dentro do container
+      - BACKEND_URL=http://api:8000
+      # Optionally forward ElevenLabs key from host env
+      - VITE_ELEVENLABS_API_KEY=${VITE_ELEVENLABS_API_KEY:-}
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "5173:5173"
+    command: sh -lc "npm ci && npm run dev -- --host 0.0.0.0 --port 5173"
+
+volumes:
+  pgdata:
