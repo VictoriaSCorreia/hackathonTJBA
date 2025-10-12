@@ -148,9 +148,13 @@ function ChatPage({ setActivePage }) {
         if (qs && qs.length) {
           const display = `Precisamos de alguns detalhes:\n\n1) ${qs[0]}\n2) ${qs[1]}\n3) ${qs[2]}\n\nResponda acima para continuar.`;
           setMessages(prev => [...prev, { text: display, sender: 'ai' }]);
+          // Auto-open transcript to make the questions visible
+          setIsTranscriptVisible(true);
           setWaitingClarification(true);
         } else {
           setMessages(prev => [...prev, { text: assistantText, sender: 'ai' }]);
+          // Auto-open transcript to show the assistant reply
+          setIsTranscriptVisible(true);
           setWaitingClarification(false);
           await playAudioResponse(assistantText);
         }
