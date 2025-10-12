@@ -2,6 +2,12 @@
 
 Guia conciso para criar conversas e enviar mensagens no backend.
 
+### Base de conhecimento (KB)
+
+- A KB �� carregada automaticamente a partir do primeiro diret��rio existente na ordem: `backend-fastapi/know_base`, `backend-fastapi/kb`, `./know_base`, `./kb`.
+- Se `KB_DIR` estiver definida no ambiente do servi��o, ela tem prioridade sobre os caminhos acima.
+- O reposit��rio inclui `backend-fastapi/know_base` com 3 leis estruturadas (Lei 7.716/1989, Lei 12.288/2010 e Lei 14.532/2023) que s��o priorizadas no RAG e sempre consideradas junto com os top‑k documentos por palavras‑chave.
+
 - Base URL: `http://localhost:8000/api/v1`
 - Autenticação convidado: envie `X-Guest-Id: <guest_id>` ou cookie `guest_id=<guest_id>`
 - Obtenha um convidado: `POST /api/v1/sessions`

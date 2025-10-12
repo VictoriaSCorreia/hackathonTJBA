@@ -1,0 +1,689 @@
+{
+    "metadados": {
+      "tipo_ato": "Lei",
+      "numero": "12288",
+      "ano": 2010,
+      "data_epigrafe": "2010-07-20",
+      "titulo_oficial_raw": "LEI Nº 12.288, DE 20 DE JULHO DE 2010",
+      "ementa": "Institui o Estatuto da Igualdade Racial; altera as Leis nºs 7.716, de 5 de janeiro de 1989, 9.029, de 13 de abril de 1995, 7.347, de 24 de julho de 1985, e 10.778, de 24 de novembro de 2003.",
+      "pais": "Brasil",
+      "orgao": "Presidência da República / Casa Civil / Subchefia para Assuntos Jurídicos",
+      "idioma": "pt-BR",
+      "identificadores": {
+        "urn": null,
+        "urn_lex": "urn:lex:br:federal:lei:2010-07-20;12288"
+      },
+      "fonte": {
+        "fonte_oficial_url": "http://legislacao.planalto.gov.br/legisla/legislacao.nsf/Viw_Identificacao/lei%2012.288-2010?OpenDocument",
+        "pagina_pln_url": null,
+        "fonte_tipo": "site_oficial",
+        "observacoes": "Página HTML traz reticências em dispositivos que alteram outras leis; ideal complementar com versão consolidada."
+      },
+      "publicacao": {
+        "local_sancao": "Brasília",
+        "data_publicacao": "2010-07-21",
+        "vigencia": {
+          "regra": "vacatio legis de 90 dias após a publicação",
+          "entrada_vigor": "2010-10-19",
+          "fundamento": "Art. 65"
+        },
+        "autoridades_assinaturas": [
+          { "nome": "Luiz Inácio Lula da Silva", "cargo": null },
+          { "nome": "Eloi Ferreira de Araújo", "cargo": null }
+        ],
+        "nota_dou": "Este texto não substitui o publicado no DOU de 21.7.2010."
+      },
+      "versao": {
+        "estado_vigencia": "vigente",
+        "consolidacao_data": null,
+        "ultima_atualizacao": null,
+        "historico_alteracoes": []
+      }
+    },
+    "texto": {
+      "titulos": [
+        { "ident": "TÍTULO I", "nome": "DISPOSIÇÕES PRELIMINARES", "anchor": "#tituloi" },
+        { "ident": "TÍTULO II", "nome": "DOS DIREITOS FUNDAMENTAIS", "anchor": "#tituloii" },
+        { "ident": "TÍTULO III", "nome": "DO SISTEMA NACIONAL DE PROMOÇÃO DA IGUALDADE RACIAL (SINAPIR)", "anchor": "#tituloiii" },
+        { "ident": "TÍTULO IV", "nome": "DISPOSIÇÕES FINAIS", "anchor": "#tituloiv" }
+      ],
+      "artigos": [
+        {
+          "artigo_num": "1",
+          "anchor": "#art1",
+          "caput": "Esta Lei institui o Estatuto da Igualdade Racial, destinado a garantir à população negra a efetivação da igualdade de oportunidades, a defesa dos direitos étnicos individuais, coletivos e difusos e o combate à discriminação e às demais formas de intolerância étnica.",
+          "paragrafos": [
+            {
+              "paragrafo": "parágrafo único",
+              "texto": "Para efeito deste Estatuto, considera-se:",
+              "incisos": [
+                { "inciso": "I", "anchor": "#art1i", "texto": "discriminação racial ou étnico-racial: toda distinção, exclusão, restrição ou preferência baseada em raça, cor, descendência ou origem nacional ou étnica..." },
+                { "inciso": "II", "anchor": "#art1ii", "texto": "desigualdade racial: toda situação injustificada de diferenciação de acesso e fruição de bens, serviços e oportunidades..." },
+                { "inciso": "III", "anchor": "#art1iii", "texto": "desigualdade de gênero e raça: assimetria ... que acentua a distância social entre mulheres negras e os demais segmentos..." },
+                { "inciso": "IV", "anchor": "#art1iv", "texto": "população negra: o conjunto de pessoas que se autodeclaram pretas e pardas (critério IBGE)..." },
+                { "inciso": "V", "anchor": "#art1v", "texto": "políticas públicas: ações, iniciativas e programas adotados pelo Estado..." },
+                { "inciso": "VI", "anchor": "#art1vi", "texto": "ações afirmativas: programas e medidas especiais adotados pelo Estado e pela iniciativa privada para correção das desigualdades raciais..." }
+              ]
+            }
+          ],
+          "tags_contexto": ["conceitos", "definicoes", "igualdade_racial"]
+        },
+        {
+          "artigo_num": "2",
+          "anchor": "#art2",
+          "caput": "É dever do Estado e da sociedade garantir a igualdade de oportunidades, reconhecendo a todo cidadão brasileiro, independentemente da etnia ou cor da pele, o direito à participação na comunidade...",
+          "tags_contexto": ["dever_do_estado", "igualdade_oportunidades"]
+        },
+        {
+          "artigo_num": "3",
+          "anchor": "#art3",
+          "caput": "Além das normas constitucionais relativas aos princípios fundamentais, aos direitos e garantias fundamentais e aos direitos sociais, econômicos e culturais, o Estatuto adota como diretriz político-jurídica a inclusão das vítimas de desigualdade étnico-racial, a valorização da igualdade étnica e o fortalecimento da identidade nacional brasileira.",
+          "tags_contexto": ["diretrizes", "politico_juridico"]
+        },
+        {
+          "artigo_num": "4",
+          "anchor": "#art4",
+          "caput": "A participação da população negra, em condição de igualdade de oportunidade, na vida econômica, social, política e cultural do País será promovida prioritariamente por meio de:",
+          "incisos": [
+            { "inciso": "I", "anchor": "#art4i", "texto": "inclusão nas políticas públicas de desenvolvimento econômico e social;" },
+            { "inciso": "II", "anchor": "#art4ii", "texto": "adoção de medidas, programas e políticas de ação afirmativa;" },
+            { "inciso": "III", "anchor": "#art4iii", "texto": "modificação das estruturas institucionais do Estado..." },
+            { "inciso": "IV", "anchor": "#art4iv", "texto": "ajustes normativos para aperfeiçoar o combate à discriminação étnica..." },
+            { "inciso": "V", "anchor": "#art4v", "texto": "eliminação dos obstáculos históricos, socioculturais e institucionais..." },
+            { "inciso": "VI", "anchor": "#art4vi", "texto": "estímulo e fortalecimento de iniciativas da sociedade civil..." },
+            { "inciso": "VII", "anchor": "#art4vii", "texto": "programas de ação afirmativa destinados à educação, cultura, esporte e lazer, saúde..." }
+          ],
+          "paragrafos": [
+            { "paragrafo": "parágrafo único", "anchor": "#art4p", "texto": "Os programas de ação afirmativa constituir-se-ão em políticas públicas destinadas a reparar as distorções e desigualdades sociais..." }
+          ],
+          "tags_contexto": ["acoes_afirmativas", "politicas_publicas"]
+        },
+        {
+          "artigo_num": "5",
+          "anchor": "#art5",
+          "caput": "Para a consecução dos objetivos desta Lei, é instituído o Sistema Nacional de Promoção da Igualdade Racial (Sinapir), conforme estabelecido no Título III.",
+          "tags_contexto": ["sinapir", "sistema"]
+        },
+  
+
+        {
+          "artigo_num": "6",
+          "anchor": "#art6",
+          "caput": "O direito à saúde da população negra será garantido pelo poder público mediante políticas universais, sociais e econômicas destinadas à redução do risco de doenças e de outros agravos.",
+          "paragrafos": [
+            { "paragrafo": "§1º", "anchor": "#art6§1", "texto": "O acesso universal e igualitário ao SUS será de responsabilidade dos órgãos e instituições públicas..." },
+            { "paragrafo": "§2º", "anchor": "#art6§2", "texto": "O poder público garantirá tratamento sem discriminação ao segmento da população negra vinculado aos seguros privados de saúde." }
+          ],
+          "tags_contexto": ["saude", "sus", "nao_discriminacao"]
+        },
+        {
+          "artigo_num": "7",
+          "anchor": "#art7",
+          "caput": "O conjunto de ações de saúde voltadas à população negra constitui a Política Nacional de Saúde Integral da População Negra, organizada pelas seguintes diretrizes:",
+          "incisos": [
+            { "inciso": "I", "anchor": "#art7i", "texto": "ampliação e fortalecimento da participação de lideranças dos movimentos sociais ..." },
+            { "inciso": "II", "anchor": "#art7ii", "texto": "produção de conhecimento científico e tecnológico em saúde da população negra;" },
+            { "inciso": "III", "anchor": "#art7iii", "texto": "desenvolvimento de processos de informação, comunicação e educação..." }
+          ],
+          "tags_contexto": ["saude", "politica_publica"]
+        },
+        {
+          "artigo_num": "8",
+          "anchor": "#art8",
+          "caput": "Constituem objetivos da Política Nacional de Saúde Integral da População Negra:",
+          "incisos": [
+            { "inciso": "I", "anchor": "#art8i", "texto": "promoção da saúde integral da população negra, priorizando a redução das desigualdades..." },
+            { "inciso": "II", "anchor": "#art8ii", "texto": "melhoria da qualidade dos sistemas de informação do SUS..." },
+            { "inciso": "III", "anchor": "#art8iii", "texto": "fomento a estudos e pesquisas sobre racismo e saúde da população negra;" },
+            { "inciso": "IV", "anchor": "#art8iv", "texto": "inclusão do conteúdo da saúde da população negra na formação e educação permanente dos trabalhadores da saúde;" },
+            { "inciso": "V", "anchor": "#art8v", "texto": "inclusão da temática nos processos de formação política das lideranças de movimentos sociais..." }
+          ],
+          "paragrafos": [
+            { "paragrafo": "parágrafo único", "anchor": "#art8p", "texto": "Moradores de remanescentes de quilombos serão beneficiários de incentivos específicos..." }
+          ],
+          "tags_contexto": ["saude", "quilombos", "dados_sus"]
+        },
+  
+
+        {
+          "artigo_num": "9",
+          "anchor": "#art9",
+          "caput": "A população negra tem direito a participar de atividades educacionais, culturais, esportivas e de lazer adequadas a seus interesses e condições...",
+          "tags_contexto": ["educacao", "cultura", "esporte", "lazer"]
+        },
+        {
+          "artigo_num": "10",
+          "anchor": "#art10",
+          "caput": "Para o cumprimento do art. 9º, os governos adotarão as seguintes providências:",
+          "incisos": [
+            { "inciso": "I", "anchor": "#art10i", "texto": "promoção de ações para viabilizar e ampliar o acesso ao ensino gratuito e às atividades esportivas e de lazer;" },
+            { "inciso": "II", "anchor": "#art10ii", "texto": "apoio a entidades que mantenham espaço para promoção social e cultural da população negra;" },
+            { "inciso": "III", "anchor": "#art10iii", "texto": "campanhas educativas para solidariedade à população negra;" },
+            { "inciso": "IV", "anchor": "#art10iv", "texto": "políticas públicas para o fortalecimento da juventude negra brasileira." }
+          ],
+          "tags_contexto": ["politicas_educacionais", "juventude_negra"]
+        },
+        {
+          "artigo_num": "11",
+          "anchor": "#art11",
+          "caput": "Nos estabelecimentos de ensino fundamental e médio, públicos e privados, é obrigatório o estudo da história geral da África e da história da população negra no Brasil, observado o disposto na Lei nº 9.394/1996.",
+          "paragrafos": [
+            { "paragrafo": "§1º", "anchor": "#art11§1", "texto": "Os conteúdos serão ministrados no âmbito de todo o currículo escolar..." },
+            { "paragrafo": "§2º", "anchor": "#art11§2", "texto": "O órgão competente fomentará a formação de professores e material didático específico..." },
+            { "paragrafo": "§3º", "anchor": "#art11§3", "texto": "Nas datas cívicas, incentivar-se-á a participação de intelectuais e representantes do movimento negro..." }
+          ],
+          "atos_citados": [{ "tipo": "Lei", "numero": "9394", "ano": 1996, "titulo": "Lei de Diretrizes e Bases da Educação" }],
+          "tags_contexto": ["curriculo", "historia_africa", "educacao_basica"]
+        },
+        {
+          "artigo_num": "12",
+          "anchor": "#art12",
+          "caput": "Órgãos de fomento poderão criar incentivos a pesquisas e programas de estudo sobre relações étnicas, quilombos e temas pertinentes à população negra.",
+          "tags_contexto": ["pesquisa", "pos_graduacao", "quilombos"]
+        },
+        {
+          "artigo_num": "13",
+          "anchor": "#art13",
+          "caput": "O Poder Executivo federal incentivará as IES públicas e privadas a:",
+          "incisos": [
+            { "inciso": "I", "texto": "resguardar princípios de ética em pesquisa e apoiar grupos/núcleos que desenvolvam temáticas de interesse da população negra;" },
+            { "inciso": "II", "texto": "incluir nas matrizes curriculares valores da pluralidade étnica e cultural;" },
+            { "inciso": "III", "texto": "programas de extensão para aproximar jovens negros de tecnologias avançadas (com proporcionalidade de gênero);" },
+            { "inciso": "IV", "texto": "cooperação técnica com escolas para formação docente baseada em equidade e respeito às diferenças étnicas." }
+          ],
+          "tags_contexto": ["ensino_superior", "curriculo", "extensao"]
+        },
+        { "artigo_num": "14", "anchor": "#art14", "caput": "O poder público estimulará ações socioeducacionais de entidades do movimento negro...", "tags_contexto": ["socioeducacional", "movimento_negro"] },
+        { "artigo_num": "15", "anchor": "#art15", "caput": "O poder público adotará programas de ação afirmativa.", "tags_contexto": ["acoes_afirmativas"] },
+        { "artigo_num": "16", "anchor": "#art16", "caput": "O Executivo acompanhará e avaliará os programas desta Seção.", "tags_contexto": ["monitoramento", "avaliacao"] },
+  
+
+        {
+          "artigo_num": "17",
+          "anchor": "#art17",
+          "caput": "O poder público garantirá o reconhecimento de sociedades negras, clubes e outras manifestações coletivas como patrimônio histórico e cultural, nos termos dos arts. 215 e 216 da Constituição.",
+          "atos_citados": [
+            { "tipo": "Constituição", "numero": "1988", "titulo": "CF/88 art. 215" },
+            { "tipo": "Constituição", "numero": "1988", "titulo": "CF/88 art. 216" }
+          ],
+          "tags_contexto": ["patrimonio_cultural", "reconhecimento"]
+        },
+        {
+          "artigo_num": "18",
+          "anchor": "#art18",
+          "caput": "É assegurado aos remanescentes dos quilombos o direito à preservação de seus usos, costumes, tradições e manifestos religiosos.",
+          "paragrafos": [
+            { "paragrafo": "parágrafo único", "texto": "A preservação de documentos e sítios tombados (§5º do art. 216 da CF) receberá especial atenção do poder público.", "atos_citados": [{ "tipo": "Constituição", "titulo": "CF/88 art. 216 §5º" }] }
+          ],
+          "tags_contexto": ["quilombos", "patrimonio", "religiao"]
+        },
+        { "artigo_num": "19", "anchor": "#art19", "caput": "O poder público incentivará a celebração de personalidades e datas relacionadas ao samba e outras manifestações culturais de matriz africana, inclusive nas instituições de ensino.", "tags_contexto": ["samba", "cultura_africana"] },
+        {
+          "artigo_num": "20",
+          "anchor": "#art20",
+          "caput": "Garantia do registro e proteção da capoeira, em todas as modalidades, como bem de natureza imaterial (art. 216 da CF).",
+          "paragrafos": [
+            { "paragrafo": "parágrafo único", "texto": "O poder público buscará garantir, por atos normativos, a preservação dos elementos formadores tradicionais da capoeira em suas relações internacionais." }
+          ],
+          "tags_contexto": ["capoeira", "patrimonio_imaterial"]
+        },
+  
+
+        { "artigo_num": "21", "anchor": "#art21", "caput": "O poder público fomentará o pleno acesso da população negra às práticas desportivas...", "tags_contexto": ["esporte", "direitos_sociais"] },
+        {
+          "artigo_num": "22",
+          "anchor": "#art22",
+          "caput": "A capoeira é reconhecida como desporto de criação nacional (art. 217 da CF).",
+          "paragrafos": [
+            { "paragrafo": "§1º", "anchor": "#art22§1", "texto": "Reconhecimento da atividade de capoeirista em todas as modalidades; livre exercício em todo o território nacional." },
+            { "paragrafo": "§2º", "anchor": "#art22§2", "texto": "É facultado o ensino da capoeira nas instituições públicas e privadas por capoeiristas e mestres tradicionais, formalmente reconhecidos." }
+          ],
+          "tags_contexto": ["capoeira", "esporte", "ensino_capoeira"]
+        },
+
+        { "artigo_num": "23", "anchor": "#art23", "caput": "É inviolável a liberdade de consciência e de crença; assegurado o livre exercício dos cultos e a proteção aos locais e liturgias.", "tags_contexto": ["liberdade_religiosa"] },
+        {
+          "artigo_num": "24",
+          "anchor": "#art24",
+          "caput": "O direito à liberdade de consciência e crença e ao livre exercício dos cultos de matriz africana compreende:",
+          "incisos": [
+            { "inciso": "I", "texto": "prática de cultos, reuniões e fundação/manutenção de lugares reservados;" },
+            { "inciso": "II", "texto": "festividades e cerimônias segundo preceitos;" },
+            { "inciso": "III", "texto": "instituições beneficentes ligadas às convicções religiosas;" },
+            { "inciso": "IV", "texto": "produção/comercialização/aquisição/uso de artigos e materiais religiosos (ressalvadas condutas vedadas);" },
+            { "inciso": "V", "texto": "produção e divulgação de publicações;" },
+            { "inciso": "VI", "texto": "coleta de contribuições financeiras privadas;" },
+            { "inciso": "VII", "texto": "acesso aos meios de comunicação para divulgação;" },
+            { "inciso": "VIII", "texto": "comunicação ao MP para ação penal contra intolerância religiosa." }
+          ],
+          "tags_contexto": ["religioes_matriz_africana", "direitos_religiosos"]
+        },
+        { "artigo_num": "25", "anchor": "#art25", "caput": "Assegurada assistência religiosa a praticantes de religiões de matriz africana internados em instituições, inclusive aos submetidos a pena privativa de liberdade.", "tags_contexto": ["assistencia_religiosa"] },
+        {
+          "artigo_num": "26",
+          "anchor": "#art26",
+          "caput": "Medidas contra intolerância às religiões de matrizes africanas e discriminação de seus seguidores:",
+          "incisos": [
+            { "inciso": "I", "texto": "coibir uso dos meios de comunicação para difusão de proposições/imagens que exponham ao ódio/desprezo por motivos religiosos;" },
+            { "inciso": "II", "texto": "inventariar, restaurar e proteger bens culturais e naturais vinculados às religiões de matrizes africanas;" },
+            { "inciso": "III", "texto": "assegurar participação proporcional de representantes dessas religiões em instâncias vinculadas ao poder público." }
+          ],
+          "tags_contexto": ["intolerancia_religiosa", "comunicacao_social"]
+        },
+
+        { "artigo_num": "27", "anchor": "#art27", "caput": "Políticas públicas para promover o acesso da população negra à terra e às atividades produtivas no campo.", "tags_contexto": ["terra", "politica_agraria"] },
+        { "artigo_num": "28", "anchor": "#art28", "caput": "Ações para viabilizar e ampliar acesso ao financiamento agrícola.", "tags_contexto": ["credito_agricola"] },
+        { "artigo_num": "29", "anchor": "#art29", "caput": "Assistência técnica rural, simplificação do acesso ao crédito e fortalecimento da logística para comercialização.", "tags_contexto": ["assistencia_tecnica", "logistica"] },
+        { "artigo_num": "30", "anchor": "#art30", "caput": "Educação e orientação profissional agrícola para trabalhadores negros e comunidades negras rurais.", "tags_contexto": ["educacao_rural"] },
+        { "artigo_num": "31", "anchor": "#art31", "caput": "Aos remanescentes dos quilombos ocupantes de suas terras é reconhecida a propriedade definitiva; o Estado emitirá títulos.", "tags_contexto": ["quilombos", "regularizacao_fundiaria"] },
+        { "artigo_num": "32", "anchor": "#art32", "caput": "Políticas públicas especiais para desenvolvimento sustentável de remanescentes dos quilombos, respeitando tradições de proteção ambiental.", "tags_contexto": ["sustentabilidade", "quilombos"] },
+        { "artigo_num": "33", "anchor": "#art33", "caput": "Tratamento especial diferenciado, assistência técnica e linhas especiais de financiamento para atividades produtivas e infraestrutura.", "tags_contexto": ["financiamento_publico", "quilombos"] },
+        { "artigo_num": "34", "anchor": "#art34", "caput": "Remanescentes dos quilombos se beneficiarão de iniciativas previstas nesta e em outras leis para promoção da igualdade étnica.", "tags_contexto": ["beneficios_legais", "quilombos"] },
+        {
+          "artigo_num": "35",
+          "anchor": "#art35",
+          "caput": "Políticas públicas para assegurar o direito à moradia adequada da população negra em áreas vulneráveis urbanas.",
+          "paragrafos": [
+            { "paragrafo": "parágrafo único", "texto": "Moradia adequada inclui provimento habitacional, infraestrutura urbana, equipamentos comunitários e assistência técnica e jurídica..." }
+          ],
+          "tags_contexto": ["moradia", "politica_urbana"]
+        },
+        {
+          "artigo_num": "36",
+          "anchor": "#art36",
+          "caput": "Ações no âmbito do SNHIS (Lei nº 11.124/2005) devem considerar peculiaridades sociais, econômicas e culturais da população negra.",
+          "paragrafos": [
+            { "paragrafo": "parágrafo único", "texto": "Estados, DF e Municípios estimularão a participação de organizações representativas da população negra nos conselhos do FNHIS." }
+          ],
+          "atos_citados": [{ "tipo": "Lei", "numero": "11124", "ano": 2005, "titulo": "SNHIS" }],
+          "tags_contexto": ["snhis", "fnhis", "habitacao_social"]
+        },
+        { "artigo_num": "37", "anchor": "#art37", "caput": "Agentes financeiros públicos ou privados promoverão ações para viabilizar acesso da população negra a financiamentos habitacionais.", "tags_contexto": ["financiamento_habitacional"] },
+  
+        {
+          "artigo_num": "38",
+          "anchor": "#art38",
+          "caput": "A implementação de políticas de inclusão da população negra no mercado de trabalho observará:",
+          "incisos": [
+            { "inciso": "I", "texto": "o instituído neste Estatuto;" },
+            { "inciso": "II", "texto": "a Convenção Internacional sobre a Eliminação de Todas as Formas de Discriminação Racial (1965);" },
+            { "inciso": "III", "texto": "a Convenção nº 111/1958 da OIT (discriminação no emprego e profissão);" },
+            { "inciso": "IV", "texto": "os demais compromissos internacionais assumidos pelo Brasil." }
+          ],
+          "tags_contexto": ["trabalho", "normas_internacionais"]
+        },
+        {
+          "artigo_num": "39",
+          "anchor": "#art39",
+          "caput": "Ações do poder público para assegurar igualdade de oportunidades no mercado de trabalho, inclusive medidas nas contratações públicas e incentivo ao setor privado.",
+          "paragrafos": [
+            { "paragrafo": "§1º", "anchor": "#art39§1", "texto": "Políticas e programas de formação profissional, emprego e geração de renda voltados para a população negra." },
+            { "paragrafo": "§2º", "anchor": "#art39§2", "texto": "Na administração pública, por meio de normas específicas e regulamentos." },
+            { "paragrafo": "§3º", "anchor": "#art39§3", "texto": "Estímulos para iguais medidas pelo setor privado." },
+            { "paragrafo": "§4º", "anchor": "#art39§4", "texto": "As ações assegurarão o princípio da proporcionalidade de gênero entre beneficiários." },
+            { "paragrafo": "§5º", "anchor": "#art39§5", "texto": "Acesso ao crédito para pequena produção, com ações afirmativas para mulheres negras." },
+            { "paragrafo": "§6º", "anchor": "#art39§6", "texto": "Campanhas contra a marginalização da mulher negra no trabalho artístico e cultural." },
+            { "paragrafo": "§7º", "anchor": "#art39§7", "texto": "Ações para elevar escolaridade e qualificação em setores com alto índice de trabalhadores negros de baixa escolarização." },
+            {
+              "paragrafo": "§8º",
+              "anchor": "#art39§8",
+              "texto": "Registros administrativos conterão campos para identificar segmento étnico-racial do trabalhador (autoclassificação).",
+              "editorial": {
+                "incluido_por": { "ato": "Lei 14.553/2023", "anchor": "../../../_Ato2023-2026/2023/Lei/L14553.htm#art1" }
+              }
+            },
+            {
+              "paragrafo": "§9º",
+              "anchor": "#art39§9",
+              "texto": "Aplicação do §8º, sem prejuízo de extensão obrigatória, a:",
+              "incisos": [
+                { "inciso": "I", "texto": "formulários de admissão e demissão;" },
+                { "inciso": "II", "texto": "formulários de acidente de trabalho;" },
+                { "inciso": "III", "texto": "instrumentos do Sine (ou estrutura sucessora);" },
+                { "inciso": "IV", "texto": "Rais (ou documento posterior assemelhado);" },
+                { "inciso": "V", "texto": "documentos para inscrição no RGPS (segurados e dependentes);" },
+                { "inciso": "VI", "texto": "questionários de pesquisas do IBGE (ou órgão sucessor)." }
+              ],
+              "editorial": {
+                "incluido_por": { "ato": "Lei 14.553/2023", "anchor": "../../../_Ato2023-2026/2023/Lei/L14553.htm#art1" }
+              }
+            }
+          ],
+          "tags_contexto": ["igualdade_no_trabalho", "dados_etnico_raciais", "mulheres_negras"]
+        },
+        { "artigo_num": "40", "anchor": "#art40", "caput": "O Codefat formulará políticas para inclusão da população negra no mercado de trabalho e orientará a destinação de recursos.", "tags_contexto": ["codefat", "politicas_emprego"] },
+        { "artigo_num": "41", "anchor": "#art41", "caput": "Ações de emprego e renda contemplarão estímulo à promoção de empresários negros.", "paragrafos": [{ "paragrafo": "parágrafo único", "texto": "Estimular atividades voltadas ao turismo étnico..." }], "tags_contexto": ["emprego_e_renda", "turismo_etnico"] },
+        { "artigo_num": "42", "anchor": "#art42", "caput": "O Executivo federal poderá implementar critérios para cargos em comissão e funções de confiança visando ampliar participação de negros (observando dados demográficos).", "tags_contexto": ["administracao_publica", "cargos_comissao"] },
+  
+        
+        { "artigo_num": "43", "anchor": "#art43", "caput": "A produção dos órgãos de comunicação valorizará a herança cultural e a participação da população negra na história do País.", "tags_contexto": ["mídia", "representatividade"] },
+        {
+          "artigo_num": "44",
+          "anchor": "#art44",
+          "caput": "Na produção audiovisual para TV e cinema, deve-se conferir oportunidades de emprego para atores, figurantes e técnicos negros; é vedada discriminação política, ideológica, étnica ou artística.",
+          "paragrafos": [{ "paragrafo": "parágrafo único", "texto": "Exigência não se aplica a produções que abordem especificidades de grupos étnicos determinados." }],
+          "tags_contexto": ["audiovisual", "contratacao"]
+        },
+        { "artigo_num": "45", "anchor": "#art45", "caput": "Aplica-se às peças publicitárias o disposto no art. 44.", "tags_contexto": ["publicidade", "igualdade_oportunidades"] },
+        {
+          "artigo_num": "46",
+          "anchor": "#art46",
+          "caput": "Órgãos e entidades da administração federal, empresas públicas e sociedades de economia mista deverão incluir cláusulas de participação de artistas negros em contratos de filmes, programas ou peças publicitárias.",
+          "paragrafos": [
+            { "paragrafo": "§1º", "anchor": "#art46§1", "texto": "Obrigatoriedade de prática de iguais oportunidades de emprego nos serviços contratados." },
+            { "paragrafo": "§2º", "anchor": "#art46§2", "texto": "Definição de prática de iguais oportunidades de emprego (diversidade étnica, sexo e idade)." },
+            { "paragrafo": "§3º", "anchor": "#art46§3", "texto": "Autoridade contratante poderá requerer auditoria por órgão do poder público federal." },
+            { "paragrafo": "§4º", "anchor": "#art46§4", "texto": "Exigência não se aplica quando a produção abordar especificidades de grupos étnicos determinados." }
+          ],
+          "tags_contexto": ["contratacao_publica", "clausulas_igualdade"]
+        },
+  
+  
+        { "artigo_num": "47", "anchor": "#art47", "caput": "Institui-se o Sinapir como forma de organização e articulação de políticas e serviços destinados a superar desigualdades étnicas, prestados pelo poder público federal.", "paragrafos": [ { "paragrafo": "§1º", "anchor": "#art47§1", "texto": "Estados, DF e Municípios poderão aderir ao Sinapir." }, { "paragrafo": "§2º", "anchor": "#art47§2", "texto": "O poder público federal incentivará a sociedade e a iniciativa privada a participar do Sinapir." } ], "tags_contexto": ["sinapir", "adesao_federativa"] },
+        {
+          "artigo_num": "48",
+          "anchor": "#art48",
+          "caput": "Objetivos do Sinapir:",
+          "incisos": [
+            { "inciso": "I", "texto": "promover igualdade étnica e combater desigualdades sociais resultantes do racismo, inclusive com ações afirmativas;" },
+            { "inciso": "II", "texto": "formular políticas contra fatores de marginalização e promover integração social;" },
+            { "inciso": "III", "texto": "descentralizar ações afirmativas para entes subnacionais;" },
+            { "inciso": "IV", "texto": "articular planos e mecanismos de promoção da igualdade étnica;" },
+            { "inciso": "V", "texto": "garantir eficácia dos instrumentos e metas das ações afirmativas." }
+          ],
+          "tags_contexto": ["sinapir", "objetivos"]
+        },
+        {
+          "artigo_num": "49",
+          "anchor": "#art49",
+          "caput": "O Executivo federal elaborará plano nacional de promoção da igualdade racial com metas, princípios e diretrizes para implementar a PNPIR.",
+          "paragrafos": [
+            { "paragrafo": "§1º", "anchor": "#art49§1", "texto": "Elaboração, implementação, coordenação e acompanhamento da PNPIR e do Sinapir pelo órgão responsável pela política de promoção da igualdade étnica em âmbito nacional. (Vide Lei nº 12.990/2014)", "atos_citados": [{ "tipo": "Lei", "numero": "12990", "ano": 2014, "titulo": "Lei 12.990/2014 (cotas no serviço público) - referência 'Vide'" }] },
+            { "paragrafo": "§2º", "anchor": "#art49§2", "texto": "Autorização para instituir fórum intergovernamental de promoção da igualdade étnica." },
+            { "paragrafo": "§3º", "anchor": "#art49§3", "texto": "Diretrizes das políticas nacional e regional serão elaboradas por órgão colegiado com participação da sociedade civil." },
+            {
+              "paragrafo": "§4º",
+              "anchor": "#art49§4",
+              "texto": "O IBGE realizará, a cada 5 anos, pesquisa sobre percentual de ocupação de segmentos étnicos e raciais no setor público, para subsidiar a PNPIR.",
+              "editorial": { "incluido_por": { "ato": "Lei 14.553/2023", "anchor": "../../../_Ato2023-2026/2023/Lei/L14553.htm#art1" } }
+            }
+          ],
+          "tags_contexto": ["pnpr", "planejamento", "dados_ibge"]
+        },
+        {
+          "artigo_num": "50",
+          "anchor": "#art50",
+          "caput": "Poderes Executivos estaduais, distrital e municipais poderão instituir conselhos de promoção da igualdade étnica (caráter permanente e consultivo, com paridade entre governo e sociedade civil).",
+          "paragrafos": [{ "paragrafo": "parágrafo único", "texto": "Prioridade no repasse de recursos a entes que tenham criado conselhos." }],
+          "tags_contexto": ["conselhos", "governanca"]
+        },
+  
+
+        { "artigo_num": "51", "anchor": "#art51", "caput": "Instituição de Ouvidorias Permanentes em Defesa da Igualdade Racial (Legislativo e Executivo) para receber e encaminhar denúncias e acompanhar medidas de promoção da igualdade.", "tags_contexto": ["ouvidorias", "denuncias"] },
+        {
+          "artigo_num": "52",
+          "anchor": "#art52",
+          "caput": "Acesso das vítimas de discriminação étnica às Ouvidorias, Defensoria Pública, Ministério Público e Poder Judiciário para garantia de direitos.",
+          "paragrafos": [{ "paragrafo": "parágrafo único", "texto": "Atenção às mulheres negras em situação de violência (assistência física, psíquica, social e jurídica)." }],
+          "tags_contexto": ["acesso_justica", "mulheres_negras"]
+        },
+        { "artigo_num": "53", "anchor": "#art53", "caput": "Medidas especiais para coibir a violência policial incidente sobre a população negra.", "paragrafos": [{ "paragrafo": "parágrafo único", "texto": "Ações de ressocialização e proteção da juventude negra em conflito com a lei." }], "tags_contexto": ["seguranca_publica", "violencia_policial"] },
+        { "artigo_num": "54", "anchor": "#art54", "caput": "Medidas para coibir atos de discriminação e preconceito praticados por servidores públicos (aplicação da Lei nº 7.716/1989).", "atos_citados": [{ "tipo": "Lei", "numero": "7716", "ano": 1989, "titulo": "Lei do Crime Racial" }], "tags_contexto": ["servidor_publico", "discriminacao"] },
+        { "artigo_num": "55", "anchor": "#art55", "caput": "Para lesões e ameaças aos interesses da população negra decorrentes de desigualdade étnica, recorrer-se-á, entre outros, à ação civil pública (Lei nº 7.347/1985).", "atos_citados": [{ "tipo": "Lei", "numero": "7347", "ano": 1985, "titulo": "Lei da Ação Civil Pública" }], "tags_contexto": ["acao_civil_publica"] },
+  
+
+        {
+          "artigo_num": "56",
+          "anchor": "#art56",
+          "caput": "Na implementação de programas e ações dos PPAs e orçamentos anuais da União, devem ser observadas políticas de ação afirmativa e outras políticas voltadas à igualdade de oportunidades, especialmente quanto a:",
+          "incisos": [
+            { "inciso": "I", "texto": "igualdade de oportunidades em educação, emprego e moradia;" },
+            { "inciso": "II", "texto": "financiamento de pesquisas (educação, saúde e emprego) para qualidade de vida da população negra;" },
+            { "inciso": "III", "texto": "incentivo à criação de programas e veículos de comunicação voltados aos interesses da população negra;" },
+            { "inciso": "IV", "texto": "incentivo à criação e manutenção de microempresas administradas por pessoas autodeclaradas negras;" },
+            { "inciso": "V", "texto": "iniciativas que incrementem acesso e permanência na educação fundamental, média, técnica e superior;" },
+            { "inciso": "VI", "texto": "apoio a programas e projetos de governos e entidades civis para promoção da igualdade;" },
+            { "inciso": "VII", "texto": "apoio à cultura, memória e tradições africanas e brasileiras." }
+          ],
+          "paragrafos": [
+            { "paragrafo": "§1º", "anchor": "#art56§1", "texto": "Medidas de transparência na alocação/execução de recursos, explicitando proporções orçamentárias destinadas aos programas de promoção da igualdade..." },
+            { "paragrafo": "§2º", "anchor": "#art56§2", "texto": "Durante 5 anos após a publicação, órgãos federais discriminarão em seus orçamentos a participação nos programas de ação afirmativa do art. 4º VII." },
+            { "paragrafo": "§3º", "anchor": "#art56§3", "texto": "O Executivo pode estabelecer patamares de participação crescente dos programas de ação afirmativa nos orçamentos anuais." },
+            { "paragrafo": "§4º", "anchor": "#art56§4", "texto": "Órgão colegiado federal de promoção da igualdade racial acompanhará e avaliará a programação das ações nas propostas orçamentárias da União." }
+          ],
+          "tags_contexto": ["orcamento", "ppa", "transparencia"]
+        },
+        {
+          "artigo_num": "57",
+          "anchor": "#art57",
+          "caput": "Sem prejuízo de recursos ordinários, poderão ser consignados nos orçamentos fiscal e da seguridade social para financiamento das ações do art. 56:",
+          "incisos": [
+            { "inciso": "I", "texto": "transferências voluntárias de Estados, DF e Municípios;" },
+            { "inciso": "II", "texto": "doações voluntárias de particulares;" },
+            { "inciso": "III", "texto": "doações de empresas privadas e ONGs, nacionais ou internacionais;" },
+            { "inciso": "IV", "texto": "doações voluntárias de fundos nacionais ou internacionais;" },
+            { "inciso": "V", "texto": "doações de Estados estrangeiros por convênios, tratados e acordos." }
+          ],
+          "tags_contexto": ["financiamento", "doacoes"]
+        },
+  
+
+        { "artigo_num": "58", "anchor": "#art58", "caput": "As medidas instituídas nesta Lei não excluem outras em prol da população negra adotadas pela União, Estados, DF ou Municípios.", "tags_contexto": ["clausula_abertura"] },
+        { "artigo_num": "59", "anchor": "#art59", "caput": "O Executivo federal criará instrumentos para aferir a eficácia social das medidas previstas e fará monitoramento constante com relatórios periódicos, inclusive pela internet.", "tags_contexto": ["monitoramento", "transparencia"] },
+  
+    
+        {
+          "artigo_num": "60",
+          "anchor": "#art60",
+          "caput": "Os arts. 3º e 4º da Lei nº 7.716/1989 passam a vigorar com a seguinte redação:",
+          "dispositivos_alterados_ou_inseridos": [
+            {
+              "lei_destino": "Lei 7.716/1989",
+              "artigo": "3º",
+              "texto": "Parágrafo único. Incorre na mesma pena quem, por motivo de discriminação de raça, cor, etnia, religião ou procedência nacional, obstar a promoção funcional.",
+              "editorial": { "nova_redacao_nr": true, "texto_truncado": true, "observacao": "Caput exibido com reticências na fonte; parágrafo único está literal." }
+            },
+            {
+              "lei_destino": "Lei 7.716/1989",
+              "artigo": "4º",
+              "paragrafos": [
+                {
+                  "paragrafo": "§1º",
+                  "texto": "Incorre na mesma pena quem, por motivo de discriminação de raça ou de cor ou práticas resultantes do preconceito de descendência ou origem nacional ou étnica:",
+                  "incisos": [
+                    { "inciso": "I", "texto": "deixar de conceder equipamentos necessários ao empregado em igualdade de condições;" },
+                    { "inciso": "II", "texto": "impedir a ascensão funcional ou obstar outra forma de benefício profissional;" },
+                    { "inciso": "III", "texto": "proporcionar tratamento diferenciado no ambiente de trabalho, especialmente quanto ao salário." }
+                  ]
+                },
+                {
+                  "paragrafo": "§2º",
+                  "texto": "Sujeita-se às penas de multa e prestação de serviços à comunidade (incluindo atividades de promoção da igualdade racial) quem, em anúncios ou qualquer forma de recrutamento, exigir aspectos de aparência próprios de raça ou etnia para emprego cujas atividades não justifiquem tais exigências."
+                }
+              ],
+              "editorial": { "nova_redacao_nr": true, "texto_truncado": true, "observacao": "Caput exibido com reticências na fonte; §§ e incisos estão literais." }
+            }
+          ],
+          "tags_contexto": ["lei_7716", "ambiente_de_trabalho", "discriminacao"]
+        },
+        {
+          "artigo_num": "61",
+          "anchor": "#art61",
+          "caput": "Os arts. 3º e 4º da Lei nº 9.029/1995 passam a vigorar com a seguinte redação:",
+          "dispositivos_alterados_ou_inseridos": [
+            {
+              "lei_destino": "Lei 9.029/1995",
+              "artigo": "3º",
+              "texto": "Sem prejuízo do prescrito no art. 2º e nas normas que tipificam crimes resultantes de preconceito de etnia, raça ou cor, as infrações desta Lei são passíveis de cominações: ...",
+              "editorial": { "nova_redacao_nr": true, "texto_truncado": true }
+            },
+            {
+              "lei_destino": "Lei 9.029/1995",
+              "artigo": "4º",
+              "texto": "O rompimento da relação de trabalho por ato discriminatório, além do direito à reparação por dano moral, faculta ao empregado optar entre: ...",
+              "editorial": { "nova_redacao_nr": true, "texto_truncado": true }
+            }
+          ],
+          "tags_contexto": ["lei_9029", "discriminacao_no_emprego"]
+        },
+        {
+          "artigo_num": "62",
+          "anchor": "#art62",
+          "caput": "O art. 13 da Lei nº 7.347/1985 passa a vigorar acrescido do §2º (renumerado o parágrafo único para §1º):",
+          "dispositivos_alterados_ou_inseridos": [
+            {
+              "lei_destino": "Lei 7.347/1985",
+              "artigo": "13",
+              "paragrafos": [
+                { "paragrafo": "§1º", "texto": "...", "editorial": { "nova_redacao_nr": true, "texto_truncado": true } },
+                {
+                  "paragrafo": "§2º",
+                  "texto": "Havendo acordo ou condenação com fundamento em dano por ato de discriminação étnica (art. 1º da Lei 7.347/1985), a prestação em dinheiro reverterá ao fundo do caput e será utilizada para ações de promoção da igualdade étnica, conforme definição do Conselho Nacional de Promoção da Igualdade Racial (âmbito nacional) ou dos conselhos estaduais/locais (danos regionais/locais).",
+                  "editorial": { "nova_redacao_nr": true, "texto_truncado": false }
+                }
+              ]
+            }
+          ],
+          "tags_contexto": ["acao_civil_publica", "fundo_direitos_diffusos"]
+        },
+        {
+          "artigo_num": "63",
+          "anchor": "#art63",
+          "caput": "O §1º do art. 1º da Lei nº 10.778/2003 passa a vigorar com a seguinte redação:",
+          "dispositivos_alterados_ou_inseridos": [
+            {
+              "lei_destino": "Lei 10.778/2003",
+              "artigo": "1º §1º",
+              "texto": "Para os efeitos desta Lei, entende-se por violência contra a mulher qualquer ação ou conduta, baseada no gênero, inclusive decorrente de discriminação ou desigualdade étnica, que cause morte, dano ou sofrimento físico, sexual ou psicológico à mulher, tanto no âmbito público quanto no privado.",
+              "editorial": { "nova_redacao_nr": true, "texto_truncado": false }
+            }
+          ],
+          "tags_contexto": ["violencia_contra_mulher", "desigualdade_etnica"]
+        },
+        {
+          "artigo_num": "64",
+          "anchor": "#art64",
+          "caput": "O §3º do art. 20 da Lei nº 7.716/1989 passa a vigorar acrescido do inciso III:",
+          "dispositivos_alterados_ou_inseridos": [
+            {
+              "lei_destino": "Lei 7.716/1989",
+              "artigo": "20 §3º",
+              "incisos": [
+                { "inciso": "III", "texto": "a interdição das respectivas mensagens ou páginas de informação na rede mundial de computadores." }
+              ],
+              "editorial": { "nova_redacao_nr": true, "texto_truncado": true, "observacao": "Demais linhas do §3º e caput aparecem com reticências na fonte." }
+            }
+          ],
+          "tags_contexto": ["lei_7716", "internet", "interdicao_conteudo"]
+        },
+        { "artigo_num": "65", "anchor": "#art65", "caput": "Esta Lei entra em vigor 90 (noventa) dias após a data de sua publicação.", "tags_contexto": ["vigencia", "vacatio_legis"] }
+      ]
+    },
+    "anotacoes": {
+      "atos_citados": [
+        { "tipo": "Lei", "numero": "7716", "ano": 1989, "titulo": "Lei do Crime Racial" },
+        { "tipo": "Lei", "numero": "9029", "ano": 1995, "titulo": "Proíbe práticas discriminatórias no emprego" },
+        { "tipo": "Lei", "numero": "7347", "ano": 1985, "titulo": "Lei da Ação Civil Pública" },
+        { "tipo": "Lei", "numero": "10778", "ano": 2003, "titulo": "Notificação compulsória de violência contra a mulher" },
+        { "tipo": "Lei", "numero": "9394", "ano": 1996, "titulo": "Lei de Diretrizes e Bases da Educação" },
+        { "tipo": "Lei", "numero": "11124", "ano": 2005, "titulo": "SNHIS" },
+        { "tipo": "Decreto", "numero": "8136", "ano": 2013, "titulo": "Vide Decreto nº 8.136/2013" },
+        { "tipo": "Lei", "numero": "12990", "ano": 2014, "titulo": "Lei 12.990/2014 (Vide no art. 49, §1º)" },
+        { "tipo": "Lei", "numero": "14553", "ano": 2023, "titulo": "Lei 14.553/2023 (incluiu art. 39 §§8º-9º e art. 49 §4º)" },
+        { "tipo": "Constituição", "numero": "1988", "titulo": "CF/88 arts. 215, 216 e 217" }
+      ],
+      "relacoes_normativas": {
+        "altera": [
+          {
+            "ato": "Lei 7.716/1989",
+            "dispositivos": [
+              { "ident": "art. 3º (parágrafo único)", "tipo_mudanca": "nova redação (NR)" },
+              { "ident": "art. 4º (caput e §§)", "tipo_mudanca": "nova redação (NR)" },
+              { "ident": "art. 20 §3º III", "tipo_mudanca": "acréscimo (NR)" }
+            ]
+          },
+          {
+            "ato": "Lei 9.029/1995",
+            "dispositivos": [
+              { "ident": "art. 3º", "tipo_mudanca": "nova redação (NR)" },
+              { "ident": "art. 4º", "tipo_mudanca": "nova redação (NR)" }
+            ]
+          },
+          {
+            "ato": "Lei 7.347/1985",
+            "dispositivos": [
+              { "ident": "art. 13 §2º (incluído); renumeração do parágrafo único para §1º", "tipo_mudanca": "acréscimo (NR)" }
+            ]
+          },
+          {
+            "ato": "Lei 10.778/2003",
+            "dispositivos": [
+              { "ident": "art. 1º §1º", "tipo_mudanca": "nova redação (NR)" }
+            ]
+          }
+        ],
+        "remissoes_expressas": [
+          { "ato": "Lei 9.394/1996 (LDB)", "local": "art. 11" },
+          { "ato": "Lei 11.124/2005 (SNHIS)", "local": "art. 36" },
+          { "ato": "CF/88 arts. 215 e 216", "local": "arts. 17 e 20" },
+          { "ato": "CF/88 art. 217", "local": "art. 22" },
+          { "ato": "Decreto 8.136/2013", "local": "nota prévia/Vigência" },
+          { "ato": "Lei 12.990/2014", "local": "art. 49 §1º (Vide)" },
+          { "ato": "Lei 14.553/2023", "local": "art. 39 §§8º-9º e art. 49 §4º (Incluído)" }
+        ]
+      },
+      "derivacoes": {
+        "alcance_constitucional": [
+          { "referencia": "CF/1988 arts. 215 e 216", "descricao": "Direitos culturais, proteção do patrimônio cultural e registro de bens imateriais (capoeira) – base para arts. 17 e 20.", "derivacao_inferencia": false },
+          { "referencia": "CF/1988 art. 217", "descricao": "Reconhecimento do desporto (capoeira) – base para o art. 22.", "derivacao_inferencia": false }
+        ]
+      }
+    },
+    "conteudo_plano": "Estatuto da Igualdade Racial (Lei 12.288/2010). TÍT. I define conceitos e diretrizes. TÍT. II assegura direitos (saúde; educação/cultura/esporte/lazer; liberdade de crença; acesso à terra/moradia; trabalho; meios de comunicação). TÍT. III institui o SINAPIR (objetivos, organização, dados IBGE/Lei 14.553/2023, conselhos, ouvidorias, justiça/segurança, financiamento). TÍT. IV traz monitoramento, alterações em Leis 7.716/1989, 9.029/1995, 7.347/1985, 10.778/2003, e vacatio de 90 dias.",
+    "rag_chunks": [
+      { "id": "ementa", "anchor": "#ementa", "text": "Institui o Estatuto da Igualdade Racial; altera Leis 7.716/1989, 9.029/1995, 7.347/1985 e 10.778/2003." },
+      { "id": "conceitos", "anchor": "#art1", "text": "Definições de discriminação racial, desigualdade racial, desigualdade de gênero e raça, população negra, políticas públicas e ações afirmativas." },
+      { "id": "saude", "anchor": "#art6", "text": "Política Nacional de Saúde Integral da População Negra; diretrizes e objetivos." },
+      { "id": "educacao", "anchor": "#art11", "text": "Obrigatoriedade de estudo da história da África e da população negra no Brasil (LDB)." },
+      { "id": "capoeira", "anchor": "#art20", "text": "Capoeira como bem imaterial e desporto (arts. 20 e 22)." },
+      { "id": "religiao", "anchor": "#art24", "text": "Direitos das religiões de matriz africana (itens I–VIII) e combate à intolerância (art. 26)." },
+      { "id": "trabalho_dados", "anchor": "#art39", "text": "Igualdade no trabalho; inclusão de campos étnico-raciais em registros (Lei 14.553/2023)." },
+      { "id": "sinapir", "anchor": "#art47", "text": "Instituição e objetivos do SINAPIR; IBGE a cada 5 anos (Lei 14.553/2023)." },
+      { "id": "financiamento", "anchor": "#art56", "text": "Eixos de financiamento e transparência (arts. 56–57)." },
+      { "id": "alteracoes_7716", "anchor": "#art60", "text": "Alterações na Lei 7.716/1989: art. 3º par. único; art. 4º §§; art. 20 §3º III." },
+      { "id": "alteracoes_9029", "anchor": "#art61", "text": "Alterações na Lei 9.029/1995 (arts. 3º e 4º – NR; texto com reticências na fonte)." },
+      { "id": "vigencia", "anchor": "#art65", "text": "Vacatio de 90 dias após publicação (entrada em vigor: 2010-10-19)." }
+    ],
+    "validation": {
+      "has_artigos": true,
+      "header_consistente": true,
+      "has_mojibake": false,
+      "campos_adicionados": [
+        "metadados.fonte",
+        "metadados.publicacao",
+        "metadados.versao",
+        "texto.titulos",
+        "texto.artigos[*].anchor",
+        "texto.artigos[*].paragrafos[*].anchor",
+        "texto.artigos[*].incisos[*].anchor",
+        "texto.artigos[*].dispositivos_alterados_ou_inseridos",
+        "anotacoes.relacoes_normativas",
+        "anotacoes.derivacoes",
+        "rag_chunks[*].anchor"
+      ]
+    },
+    "flags_completude": {
+      "texto_integral_faltante": [
+        { "dispositivo": "Lei 7.716/1989 art. 3º (caput) – alterado pelo art. 60", "motivo": "reticências na fonte", "acao_sugerida": "substituir por texto integral consolidado" },
+        { "dispositivo": "Lei 7.716/1989 art. 4º (caput) – alterado pelo art. 60", "motivo": "reticências na fonte", "acao_sugerida": "substituir por texto integral consolidado" },
+        { "dispositivo": "Lei 9.029/1995 arts. 3º e 4º – art. 61", "motivo": "reticências na fonte", "acao_sugerida": "substituir por texto integral consolidado" },
+        { "dispositivo": "Lei 7.347/1985 art. 13 (caput e §1º) – art. 62", "motivo": "reticências na fonte", "acao_sugerida": "substituir por texto integral consolidado" },
+        { "dispositivo": "Lei 7.716/1989 art. 20 §3º (linhas anteriores e posteriores ao inc. III) – art. 64", "motivo": "reticências na fonte", "acao_sugerida": "substituir por texto integral consolidado" }
+      ],
+      "observacoes_gerais": [
+        "No topo da página há 'Vigência' (#art65) e nota 'Vide Decreto nº 8.136/2013'; mantidos em remissões.",
+        "Incluídas marcações de 'Incluído pela Lei nº 14.553/2023' nos pontos exibidos no HTML (art. 39 §§8º-9º e art. 49 §4º)."
+      ]
+    }
+  }
+  

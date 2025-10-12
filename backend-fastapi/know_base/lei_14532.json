@@ -1,0 +1,319 @@
+{
+  "metadados": {
+    "tipo_ato": "Lei",
+    "numero": "14532",
+    "ano": 2023,
+    "data_epigrafe": "2023-01-11",
+    "titulo_oficial_raw": "LEI Nº 14.532, DE 11 DE JANEIRO DE 2023",
+    "ementa": "Altera a Lei nº 7.716, de 5 de janeiro de 1989 (Lei do Crime Racial), e o Decreto-Lei nº 2.848, de 7 de dezembro de 1940 (Código Penal), para tipificar como crime de racismo a injúria racial, prever pena de suspensão de direito em caso de racismo praticado no contexto de atividade esportiva ou artística e prever pena para o racismo religioso e recreativo e para o praticado por funcionário público.",
+    "pais": "Brasil",
+    "orgao": "Presidência da República / Secretaria-Geral / Subchefia para Assuntos Jurídicos",
+    "idioma": "pt-BR",
+    "identificadores": {
+      "urn": null,
+      "urn_lex": "urn:lex:br:federal:lei:2023-01-11;14532"
+    },
+    "fonte": {
+      "fonte_oficial_url": "http://legislacao.planalto.gov.br/legisla/legislacao.nsf/Viw_Identificacao/lei%2014.532-2023?OpenDocument",
+      "pagina_pln_url": "http://www.planalto.gov.br/ccivil_03/_Ato2023-2026/2023/Lei/L14532.htm",
+      "fonte_tipo": "site_oficial",
+      "observacoes": "Página HTML com elipses em alguns dispositivos; ideal manter também versão consolidada."
+    },
+    "publicacao": {
+      "local_sancao": "Brasília",
+      "data_publicacao": "2023-01-11",
+      "autoridades_assinaturas": [
+        {"nome": "Luiz Inácio Lula da Silva", "cargo": null},
+        {"nome": "Flávio Dino de Castro e Costa", "cargo": null},
+        {"nome": "Silvio Luiz de Almeida", "cargo": null},
+        {"nome": "Anielle Francisco da Silva", "cargo": null}
+      ]
+    },
+    "versao": {
+      "estado_vigencia": "vigente",
+      "consolidacao_data": null,
+      "ultima_atualizacao": null,
+      "historico_alteracoes": []
+    }
+  },
+  "texto": {
+    "artigos": [
+      {
+        "artigo_num": "1",
+        "anchor": "#art1",
+        "caput": "Art. 1º A Lei nº 7.716, de 5 de janeiro de 1989 (Lei do Crime Racial), passa a vigorar com as seguintes alterações:",
+        "dispositivos_alterados_ou_inseridos": [
+          {
+            "lei_destino": "Lei 7.716/1989",
+            "artigo": "2º-A",
+            "tipo_mudanca": "inserção",
+            "anchor": "#l7716_art2A",
+            "texto": "Injuriar alguém, ofendendo-lhe a dignidade ou o decoro, em razão de raça, cor, etnia ou procedência nacional.",
+            "pena": "reclusão, de 2 a 5 anos, e multa",
+            "pena_normalizada": {
+              "reclusao_anos_min": 2,
+              "reclusao_anos_max": 5,
+              "multa": true,
+              "penas_acessorias": []
+            },
+            "majorantes": [
+              {
+                "dispositivo": "parágrafo único",
+                "criterio": "concurso de 2 ou mais pessoas",
+                "fator_min": 0.5,
+                "fator_max": 0.5,
+                "tipo": "aumento"
+              }
+            ],
+            "paragrafos": [
+              {
+                "paragrafo": "parágrafo único",
+                "texto": "A pena é aumentada de metade se o crime for cometido mediante concurso de 2 ou mais pessoas."
+              }
+            ],
+            "editorial": {
+              "insercao": true,
+              "nova_redacao_nr": false,
+              "texto_truncado": false
+            },
+            "tags_contexto": ["injuria_racial", "racismo", "pessoa", "raca", "cor", "etnia", "procedencia_nacional"]
+          },
+          {
+            "lei_destino": "Lei 7.716/1989",
+            "artigo": "20",
+            "tipo_mudanca": "alteração",
+            "anchor": "#l7716_art20",
+            "paragrafos": [
+              {
+                "paragrafo": "§ 2º",
+                "anchor": "#l7716_art20_p2",
+                "texto": "Se qualquer dos crimes previstos neste artigo for cometido por intermédio dos meios de comunicação social ... redes sociais, ... rede mundial de computadores ...",
+                "editorial": {
+                  "nova_redacao_nr": true,
+                  "texto_truncado": true,
+                  "observacao": "Fonte oficial usa elipses; ideal substituir por texto integral consolidado quando disponível."
+                },
+                "tags_contexto": ["meios_de_comunicacao", "redes_sociais", "internet", "divulgacao"]
+              },
+              {
+                "paragrafo": "§ 2º-A",
+                "anchor": "#l7716_art20_p2A",
+                "texto": "Se cometido no contexto de atividades esportivas, religiosas, artísticas ou culturais destinadas ao público:",
+                "pena": "reclusão, de 2 a 5 anos, e proibição de frequência por 3 anos a locais destinados a tais atividades",
+                "pena_normalizada": {
+                  "reclusao_anos_min": 2,
+                  "reclusao_anos_max": 5,
+                  "multa": false,
+                  "penas_acessorias": [
+                    {"tipo": "proibicao_de_frequencia", "duracao_anos": 3, "alvo": "locais esportivos/artisticos/culturais"}
+                  ]
+                },
+                "editorial": {
+                  "nova_redacao_nr": true,
+                  "texto_truncado": false
+                },
+                "tags_contexto": ["esporte", "arte", "religiao", "cultura", "locais_publico"]
+              },
+              {
+                "paragrafo": "§ 2º-B",
+                "anchor": "#l7716_art20_p2B",
+                "texto": "Sem prejuízo da pena correspondente à violência, incorre nas mesmas penas quem obstar, impedir ou empregar violência contra manifestações ou práticas religiosas.",
+                "editorial": {
+                  "nova_redacao_nr": true,
+                  "texto_truncado": false
+                },
+                "tags_contexto": ["liberdade_religiosa", "manifestacoes_religiosas", "protecao"]
+              },
+              {
+                "paragrafo": "§ 3º",
+                "anchor": "#l7716_art20_p3",
+                "texto": "Medidas cautelares: o juiz poderá determinar ... ouvido o Ministério Público ...",
+                "editorial": {
+                  "nova_redacao_nr": true,
+                  "texto_truncado": true,
+                  "observacao": "Fonte oficial usa elipses; manter nota até inserir rol completo de medidas."
+                },
+                "tags_contexto": ["medidas_cautelares", "ministerio_publico", "ordens_judiciais"]
+              }
+            ],
+            "editorial": {
+              "insercao": false,
+              "nova_redacao_nr": true
+            },
+            "tags_contexto": ["propaganda_discriminatoria", "racismo", "divulgacao"]
+          },
+          {
+            "lei_destino": "Lei 7.716/1989",
+            "artigo": "20-A",
+            "tipo_mudanca": "inserção",
+            "anchor": "#l7716_art20A",
+            "texto": "Os crimes previstos nesta Lei terão as penas aumentadas de 1/3 até a metade, quando ocorrerem em contexto de descontração, diversão ou recreação.",
+            "majorantes": [
+              {"criterio": "contexto de descontração/diversão/recreação", "fator_min": 0.3333, "fator_max": 0.5, "tipo": "aumento"}
+            ],
+            "editorial": {
+              "insercao": true,
+              "nova_redacao_nr": false,
+              "texto_truncado": false
+            },
+            "tags_contexto": ["recreacao", "diversao", "contexto_social"]
+          },
+          {
+            "lei_destino": "Lei 7.716/1989",
+            "artigo": "20-B",
+            "tipo_mudanca": "inserção",
+            "anchor": "#l7716_art20B",
+            "texto": "Penas dos arts. 2º-A e 20 aumentadas de 1/3 até a metade quando praticados por funcionário público no exercício ou a pretexto de exercê-lo.",
+            "majorantes": [
+              {"criterio": "praticado por funcionário público no exercício ou a pretexto", "fator_min": 0.3333, "fator_max": 0.5, "tipo": "aumento"}
+            ],
+            "editorial": {
+              "insercao": true,
+              "nova_redacao_nr": false,
+              "texto_truncado": false
+            },
+            "tags_contexto": ["funcionario_publico", "majorante_funcional"]
+          },
+          {
+            "lei_destino": "Lei 7.716/1989",
+            "artigo": "20-C",
+            "tipo_mudanca": "inserção",
+            "anchor": "#l7716_art20C",
+            "texto": "Interpretação: considerar discriminatória qualquer atitude ... que cause constrangimento, humilhação, vergonha, medo ou exposição indevida ...",
+            "texto_observacao": "Recomendável substituir por redação literal completa (inclui referência a 'grupos minoritários' e ao tratamento não usual dispensado a outros grupos).",
+            "editorial": {
+              "insercao": true,
+              "nova_redacao_nr": false,
+              "texto_truncado": true
+            },
+            "tags_contexto": ["interpretacao", "discriminacao", "criterios"]
+          },
+          {
+            "lei_destino": "Lei 7.716/1989",
+            "artigo": "20-D",
+            "tipo_mudanca": "inserção",
+            "anchor": "#l7716_art20D",
+            "texto": "Em todos os atos processuais, a vítima dos crimes de racismo deverá estar acompanhada de advogado ou defensor público.",
+            "editorial": {
+              "insercao": true,
+              "nova_redacao_nr": false,
+              "texto_truncado": false
+            },
+            "tags_contexto": ["assistencia_juridica", "vitima", "processo_civil_e_criminal"]
+          }
+        ]
+      },
+      {
+        "artigo_num": "2",
+        "anchor": "#art2",
+        "caput": "Art. 2º O § 3º do art. 140 do Decreto-Lei nº 2.848, de 7 de dezembro de 1940 (Código Penal), passa a vigorar com a seguinte redação:",
+        "dispositivos_alterados_ou_inseridos": [
+          {
+            "lei_destino": "Decreto-Lei 2.848/1940",
+            "artigo": "140 § 3º",
+            "tipo_mudanca": "nova redação",
+            "anchor": "#cp_art140_p3",
+            "texto": "Se a injúria consiste na utilização de elementos referentes a religião ou à condição de pessoa idosa ou com deficiência: Pena — reclusão, de 1 a 3 anos, e multa.",
+            "pena": "reclusão, de 1 a 3 anos, e multa",
+            "pena_normalizada": {
+              "reclusao_anos_min": 1,
+              "reclusao_anos_max": 3,
+              "multa": true,
+              "penas_acessorias": []
+            },
+            "editorial": {
+              "insercao": false,
+              "nova_redacao_nr": true,
+              "texto_truncado": false
+            },
+            "tags_contexto": ["injuria", "religiao", "pessoa_idosa", "pessoa_com_deficiencia"]
+          }
+        ]
+      },
+      {
+        "artigo_num": "3",
+        "anchor": "#art3",
+        "caput": "Art. 3º Esta Lei entra em vigor na data de sua publicação.",
+        "editorial": {
+          "texto_truncado": false
+        }
+      }
+    ]
+  },
+  "anotacoes": {
+    "atos_citados": [
+      {"tipo":"Lei","numero":"7716","ano":1989,"titulo":"Lei do Crime Racial"},
+      {"tipo":"Decreto-Lei","numero":"2848","ano":1940,"titulo":"Código Penal"}
+    ],
+    "relacoes_normativas": {
+      "altera": [
+        {
+          "ato": "Lei 7.716/1989",
+          "dispositivos": [
+            {"ident": "2º-A", "tipo_mudanca": "inserção"},
+            {"ident": "20 §2º", "tipo_mudanca": "nova redação"},
+            {"ident": "20 §2º-A", "tipo_mudanca": "inserção/nova redação"},
+            {"ident": "20 §2º-B", "tipo_mudanca": "inserção"},
+            {"ident": "20 §3º", "tipo_mudanca": "nova redação"},
+            {"ident": "20-A", "tipo_mudanca": "inserção"},
+            {"ident": "20-B", "tipo_mudanca": "inserção"},
+            {"ident": "20-C", "tipo_mudanca": "inserção"},
+            {"ident": "20-D", "tipo_mudanca": "inserção"}
+          ]
+        },
+        {
+          "ato": "Decreto-Lei 2.848/1940 (CP)",
+          "dispositivos": [
+            {"ident": "140 §3º", "tipo_mudanca": "nova redação"}
+          ]
+        }
+      ]
+    },
+    "derivacoes": {
+      "alcance_constitucional": [
+        {
+          "referencia": "CF/1988 art. 5º, XLII",
+          "descricao": "Racismo é crime inafiançável e imprescritível; a lei tipifica injúria racial como crime de racismo.",
+          "derivacao_inferencia": true,
+          "observacao": "Marcar como dado derivado/interpretativo; confirmar em análise jurisprudencial quando necessário."
+        }
+      ]
+    }
+  },
+  "conteudo_plano": "LEI Nº 14.532, DE 11 DE JANEIRO DE 2023. Ementa: Altera a Lei nº 7.716/1989 ... Art. 1º ... (insere Art. 2º-A; altera Art. 20 e §§; insere Arts. 20-A a 20-D) ... Art. 2º ... (altera art. 140 § 3º do CP) ... Art. 3º ...",
+  "rag_chunks": [
+    {"id":"ementa","anchor":"#ementa","text":"Altera a Lei nº 7.716/1989 ... praticado por funcionário público."},
+    {"id":"art1_caput","anchor":"#art1","text":"Art. 1º A Lei nº 7.716/1989 ..."},
+    {"id":"art1_2A","anchor":"#l7716_art2A","text":"Art. 2º-A Injuriar alguém ... Pena ... Parágrafo único ..."},
+    {"id":"art1_20_paragrafos","anchor":"#l7716_art20","text":"Art. 20 §§ 2º, 2º-A, 2º-B, 3º ..."},
+    {"id":"art1_20A_20D","anchor":"#l7716_art20A","text":"Arts. 20-A, 20-B, 20-C, 20-D ..."},
+    {"id":"art2_cp_140_§3","anchor":"#cp_art140_p3","text":"Art. 2º ... art. 140 § 3º do Código Penal ..."},
+    {"id":"art3_vigencia","anchor":"#art3","text":"Art. 3º Esta Lei entra em vigor ..."}
+  ],
+  "validation": {
+    "has_artigos": true,
+    "header_consistente": true,
+    "has_mojibake": false,
+    "campos_adicionados": [
+      "metadados.fonte",
+      "metadados.publicacao",
+      "metadados.versao",
+      "texto.artigos[*].anchor",
+      "texto.artigos[*].dispositivos_alterados_ou_inseridos[*].anchor",
+      "texto.artigos[*].dispositivos_alterados_ou_inseridos[*].pena_normalizada",
+      "texto.artigos[*].dispositivos_alterados_ou_inseridos[*].majorantes",
+      "texto.artigos[*].dispositivos_alterados_ou_inseridos[*].editorial",
+      "texto.artigos[*].dispositivos_alterados_ou_inseridos[*].tags_contexto",
+      "anotacoes.relacoes_normativas",
+      "anotacoes.derivacoes",
+      "rag_chunks[*].anchor"
+    ]
+  },
+  "flags_completude": {
+    "texto_integral_faltante": [
+      {"dispositivo": "Lei 7.716/1989, art. 20 §2º", "motivo": "elipses na fonte", "acao_sugerida": "substituir por texto integral consolidado"},
+      {"dispositivo": "Lei 7.716/1989, art. 20 §3º", "motivo": "elipses na fonte", "acao_sugerida": "substituir por texto integral consolidado"},
+      {"dispositivo": "Lei 7.716/1989, art. 20-C", "motivo": "resumo; incluir redação literal completa", "acao_sugerida": "inserir texto literal"}
+    ]
+  }
+}

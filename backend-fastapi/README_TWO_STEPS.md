@@ -63,6 +63,11 @@ curl -s -X POST \
   http://localhost:8000/api/v1/chat | jq
 ```
 
+### Base de conhecimento (KB)
+
+- A KB �� carregada automaticamente a partir do primeiro diret��rio existente na ordem: `backend-fastapi/know_base`, `backend-fastapi/kb`, `./know_base`, `./kb`. Se `KB_DIR` estiver definida, tem prioridade sobre todos.
+- O reposit��rio inclui `backend-fastapi/know_base` com 3 leis estruturadas e priorizadas no RAG: Lei 7.716/1989, Lei 12.288/2010 e Lei 14.532/2023. Quando presentes, elas s��o sempre consideradas nos documentos enviados ao modelo, al��m do top‑k por palavras‑chave.
+
 Notas:
 - O estado do `/chat` é temporário (processo em memória) e pode se perder em reinícios. Para produção e histórico robusto, use as rotas de conversas.
 - O agente continua usando RAG local e Cohere (Command‑R+). Configure `COHERE_API_KEY` e, opcionalmente, `KB_DIR` para sua base.

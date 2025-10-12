@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 Serviço do agente jurídico: RAG local simples + Cohere Chat.
 
@@ -20,6 +20,7 @@ from typing import Any, Dict, List, Optional
 
 import cohere
 from app.core.config import settings
+from app.services.final_prompt import build_final_prompt_v2
 from textwrap import dedent
 
 
@@ -47,6 +48,51 @@ def load_kb_from_dir(directory: str) -> List[Dict[str, Any]]:
                 if isinstance(payload, dict):
                     payload = [payload]
                 for item in payload:
+                    # Suporte a JSON estruturado de leis (know_base)
+                    if isinstance(item, dict) and item.get("metadados"):
+                        md = item.get("metadados", {})
+                        numero = str(md.get("numero") or "").strip()
+                        ano = str(md.get("ano") or "").strip()
+                        tipo = (md.get("tipo_ato") or "Lei").strip()
+                        ementa = (md.get("ementa") or "").strip()
+                        fonte = (md.get("fonte") or {}).get("fonte_oficial_url") if md.get("fonte") else None
+                        versao = md.get("versao") or {}
+                        updated_at = versao.get("ultima_atualizacao") or md.get("data_epigrafe")
+
+                        conteudo_plano = (item.get("conteudo_plano") or "").strip()
+                        rag_chunks = item.get("rag_chunks") or []
+                        rag_text = " ".join([str(c.get("text", "")).strip() for c in rag_chunks if c])
+                        content = " \n ".join([c for c in [ementa, conteudo_plano, rag_text] if c])
+
+                        title = (
+                            f"{tipo} {numero}/{ano}".strip()
+                            if (numero and ano)
+                            else (md.get("titulo_oficial_raw") or os.path.basename(path))
+                        )
+                        tags = [
+                            tipo.lower(),
+                            numero,
+                            ano,
+                            f"{tipo} {numero}".strip(),
+                        ]
+                        if numero in {"7716", "12288", "14532"}:
+                            tags.append("base_principal")
+
+                        doc = {
+                            "title": title,
+                            "content": content,
+                            "url": fonte,
+                            "jurisdiction": "BR",
+                            "updated_at": updated_at,
+                            "tags": [t for t in tags if t],
+                        }
+                        doc["_fulltext"] = _normalize_text(
+                            f"{doc['title']} {ementa} {conteudo_plano} {rag_text} {' '.join(doc['tags'])} BR"
+                        )
+                        docs.append(doc)
+                        continue
+
+                    # Formato genérico
                     title = item.get("title") or os.path.basename(path)
                     content = item.get("content") or item.get("snippet") or ""
                     url = item.get("url")
@@ -61,9 +107,7 @@ def load_kb_from_dir(directory: str) -> List[Dict[str, Any]]:
                             "jurisdiction": jurisdiction,
                             "updated_at": updated_at,
                             "tags": tags,
-                            "_fulltext": _normalize_text(
-                                f"{title} {content} {' '.join(tags)} {jurisdiction}"
-                            ),
+                            "_fulltext": _normalize_text(f"{title} {content} {' '.join(tags)} {jurisdiction}"),
                         }
                     )
         except Exception:
@@ -107,7 +151,22 @@ KB_FALLBACK: List[Dict[str, Any]] = [
 
 @lru_cache(maxsize=1)
 def get_kb_docs() -> List[Dict[str, Any]]:
-    kb_dir = settings.KB_DIR or "./kb"
+    # Resolve diretório da KB com fallback robusto
+    candidates: List[str] = []
+    if settings.KB_DIR:
+        candidates.append(settings.KB_DIR)
+    # Baseadas na estrutura do projeto
+    here = os.path.abspath(os.path.dirname(__file__))
+    project_root = os.path.abspath(os.path.join(here, "..", ".."))  # backend-fastapi
+    candidates.extend(
+        [
+            os.path.join(project_root, "know_base"),
+            os.path.join(project_root, "kb"),
+            os.path.abspath(os.path.join(os.getcwd(), "know_base")),
+            os.path.abspath(os.path.join(os.getcwd(), "kb")),
+        ]
+    )
+    kb_dir = next((p for p in candidates if p and os.path.isdir(p)), settings.KB_DIR or "./kb")
     docs = load_kb_from_dir(kb_dir)
     if not docs:
         return KB_FALLBACK
@@ -116,7 +175,8 @@ def get_kb_docs() -> List[Dict[str, Any]]:
 
 # --------------------------- RAG (keyword scoring) ---------------------------
 def _tokenize(query: str) -> List[str]:
-    return [t for t in re.split(r"[^\wáéíóúâêîôûãõç]+", query.lower()) if t]
+    # Usa classes Unicode para cobrir acentos/cedilha adequadamente
+    return [t for t in re.split(r"[^\w]+", query.lower(), flags=re.UNICODE) if t]
 
 
 def simple_keyword_score(query: str, doc: Dict[str, Any]) -> float:
@@ -148,7 +208,7 @@ def rag_retrieve(query: str, k: int = 5) -> List[Dict[str, Any]]:
         ),
         reverse=True,
     )
-    return [
+    top = [
         {
             "title": d["title"],
             "snippet": d.get("content", "")[:1000],
@@ -160,21 +220,91 @@ def rag_retrieve(query: str, k: int = 5) -> List[Dict[str, Any]]:
         for d in ranked[:k]
     ]
 
+    # Inclui sempre as três fontes principais, se presentes
+    def _is_priority(doc: Dict[str, Any]) -> bool:
+        t = (doc.get("title") or "").lower()
+        tags = [str(x).lower() for x in doc.get("tags", [])]
+        keys = ["7716", "12288", "14532"]
+        return any(k in t for k in keys) or any(any(k in tg for k in keys) for tg in tags)
 
-# --------------------------- Prompt do sistema ---------------------------
-SYSTEM_PROMPT = (
-    "Você é um agente jurídico que ajuda pessoas a entender \n"
-    "opções e caminhos práticos para resolver problemas legais, SEM substituir\n"
-    "a atuação de um(a) advogado(a).\n\n"
-    "Instruções:\n"
-    "- Responda sempre em PT-BR, com clareza e objetividade.\n"
-    "- Use a base (documents) para embasar a resposta; referencie e liste as fontes relevantes.\n"
-    "- Se faltarem detalhes importantes (jurisdição, prazos, valores, documentos), aponte quais informações o usuário deve reunir, mas ainda forneça orientações gerais.\n"
-    "- Mostre passos práticos (checklists, onde ir, quais órgãos/links).\n"
-    "- Seja cauteloso: não forneça interpretação jurídica definitiva; ressalte que é orientação informativa.\n"
-    "- Quando houver conflito entre fontes, indique as alternativas e o que costuma variar por estado/município.\n"
-    "- Estruture a saída: Resumo, Opções, Passo a passo, Documentos necessários, Prazos (se houver), Onde buscar ajuda, Fontes.\n"
-)
+    priority = [
+        {
+            "title": d["title"],
+            "snippet": d.get("content", "")[:1000],
+            "url": d.get("url"),
+            "jurisdiction": d.get("jurisdiction"),
+            "last_updated": d.get("updated_at"),
+            "tags": d.get("tags", []),
+        }
+        for d in kb_docs
+        if _is_priority(d)
+    ]
+    seen = set()
+    merged: List[Dict[str, Any]] = []
+    for d in priority + top:
+        key = (d.get("title"), d.get("url"))
+        if key in seen:
+            continue
+        seen.add(key)
+        merged.append(d)
+    # Retorna pelo menos as prioridades, com top k complementando
+    return merged[: max(k, len(priority))]
+
+
+# --------------------------- Prompt do sistema (NORMALIZADO) ---------------------------
+GLOBAL_PROMPT = dedent(
+    """
+    [ROLE]
+    Você é um Conselheiro Jurídico virtual. Entenda a situação do usuário, analise de forma neutra e didática,
+    e aponte leis potencialmente aplicáveis. Não substitui um advogado.
+
+    [FONTES PRIORITÁRIAS]
+    Use SEMPRE as três bases principais (se pertinentes):
+      • Lei 7.716/1989 (Lei do Crime Racial).
+      • Lei 12.288/2010 (Estatuto da Igualdade Racial).
+      • Lei 14.532/2023 (altera a 7.716/1989 e o CP; injúria racial como racismo).
+    Outras normas correlatas (marcar como “fora da base principal”, sujeitas a verificação): CF art. 5º, XLII; CP art. 140 §3º; CLT;
+    CDC; Marco Civil da Internet etc.
+
+    [TOM E ESTILO]
+      • Linguagem formal e acessível. Explique termos técnicos brevemente.
+      • Neutralidade: descreva cenários, riscos e alternativas.
+      • Empatia profissional, sem sentimentalismo.
+
+    [POLÍTICA DE RESPOSTA – DUAS FASES]
+      Fase A (Esclarecimento)
+        • Produza EXATAMENTE 3 perguntas objetivas para completar contexto.
+        • A saída DEVE iniciar com <clarify> e terminar com </clarify>.
+        • NÃO fazer análise jurídica ainda.
+
+      Fase B (Análise Final)
+        • Entregue análise estruturada com base nos documents recebidos.
+        • Liste leis POTENCIALMENTE aplicáveis, explicando por que e como se aplicam.
+        • Cite dispositivos quando possível (ex.: “Lei 7.716/1989, art. 20, §2º”).
+        • Limites: não emitir conclusões definitivas; orientar procura de advogado quando necessário.
+        • Feche com “veredito provisório” (condicional) + próximos passos práticos + aviso de IA.
+
+    [ESTRUTURA OBRIGATÓRIA DA FASE B]
+      1) Entendimento do caso (3–5 linhas).
+      2) Enquadramento jurídico possível (1–2 parágrafos).
+      3) Leis potencialmente aplicáveis (separar as 3 principais de “fora da base principal”):
+         • Lei X — o que é, por que pode se aplicar, elementos típicos, efeitos/penas (se houver), exemplo simples.
+         • Lei Y — idem.
+         • Lei Z — idem.
+      4) Lacunas de informação que podem mudar o enquadramento (bullets).
+      5) Veredito provisório e próximos passos (checklist prático).
+      6) Aviso legal: “Sou uma IA; isto não é aconselhamento jurídico definitivo.”
+
+    [RESTRIÇÕES]
+      • Proibido: opiniões políticas, julgamentos morais, conselhos extrajurídicos extensos, prometer resultado,
+        diagnóstico sem base, modelos complexos de petição prontos.
+      • Obrigatório: manter foco jurídico, citar leis pertinentes, tom claro.
+
+    [SAÍDA/IDIOMA]
+      • Responder em PT-BR, com clareza e objetividade.
+      • Usar “documents” para embasar a resposta; referenciar fontes relevantes.
+    """
+).strip()
 
 
 # --------------------------- Cliente Cohere ---------------------------
@@ -194,7 +324,7 @@ def call_model(
     kwargs: Dict[str, Any] = {
         "model": "command-r-plus-08-2024",
         "message": user_message,
-        "preamble": SYSTEM_PROMPT,
+        "preamble": GLOBAL_PROMPT,
     }
     if documents:
         # Sanitiza os documentos para o formato esperado pelo SDK Cohere 5.x
@@ -260,123 +390,100 @@ def _ensure_max_len(s: str, max_len: int = 240) -> str:
 
 
 def build_clarify_prompt(user_message: str) -> str:
-    """Prompt para gerar exatamente 3 perguntas de esclarecimento.
-
-    O modelo recebe os `documents` via parâmetro de `call_model`, então aqui apenas
-    instruímos o comportamento e o formato de saída.
+    """Prompt para gerar exatamente 3 perguntas de esclarecimento (Fase A).
+    O modelo receberá `documents` via call_model; aqui instruímos formato e regras.
     """
     prompt = dedent(
         f"""
-        Você é um assistente útil.
-        Tarefa: Faça exatamente 3 perguntas de esclarecimento antes de responder.
-        Regras:
-        - Não responda ainda.
-        - Perguntas objetivas, não redundantes, focadas no objetivo do usuário e no que foi recuperado do RAG.
+        Você é um Conselheiro Jurídico. Nesta etapa, apenas esclareça o contexto.
+
+        REGRAS:
+        - Inicie a saída com <clarify> e termine com </clarify>.
+        - Produza EXATAMENTE 3 perguntas (Q1, Q2, Q3), diretas e não sugestivas.
+        - Foque em quem fez o quê, quando, onde e como; peça evidências (mensagens, e-mails, testemunhas, protocolos).
+        - Não ofereça opinião jurídica aqui; não cite leis; até 120 caracteres por pergunta.
 
         Mensagem do usuário (U0):
         {user_message}
 
-        Formato de saída:
+        FORMATO:
         <clarify>
         Q1: ...
         Q2: ...
         Q3: ...
+        </clarify>
         """
     ).strip()
     return prompt
 
 
-def _extract_questions_from_text(text: str) -> list[str]:
-    """Extrai até 3 perguntas do texto retornado pelo modelo.
-
-    Preferência:
-    - Linhas iniciando com Q1:/Q2:/Q3:
-    - Caso não encontre, pega as 3 primeiras frases com '?'
-    - Faz limpeza e truncamento
-    """
+def _extract_questions_from_text(text: str) -> List[str]:
+    """Extrai até 3 perguntas do texto retornado pelo modelo."""
     lines = [l.strip() for l in text.splitlines() if l.strip()]
-    qmap: dict[str, str] = {}
+    qmap: Dict[str, str] = {}
     for ln in lines:
         m = re.match(r"^Q([123])\s*:\s*(.+)$", ln, flags=re.IGNORECASE)
         if m:
             idx = m.group(1)
-            qtext = _ensure_max_len(m.group(2))
-            if qtext.endswith("?") is False:
+            qtext = _ensure_max_len(m.group(2), 120)
+            if not qtext.endswith("?"):
                 qtext += "?"
             qmap[idx] = qtext
-    qs: list[str] = [qmap.get("1"), qmap.get("2"), qmap.get("3")]
+    qs: List[Optional[str]] = [qmap.get("1"), qmap.get("2"), qmap.get("3")]
     if all(qs):
         return [q for q in qs if q]
 
     # fallback: coletar frases com '?'
-    candidates: list[str] = []
+    candidates: List[str] = []
     blob = " ".join(lines)
-    # quebrar em sentenças rudimentarmente
     for part in re.split(r"(?<=[\?])\s+", blob):
         part = part.strip()
         if not part:
             continue
         if part.endswith("?"):
-            candidates.append(_ensure_max_len(part))
+            candidates.append(_ensure_max_len(part, 120))
         if len(candidates) >= 3:
             break
-    # se ainda insuficiente, crie perguntas genéricas úteis
-    while len(candidates) < 3:
-        default_qs = [
-            "Qual é o seu objetivo específico com este pedido?",
-            "Em qual jurisdição/estado isso se aplica?",
-            "Há prazos, valores ou documentos relevantes que devamos considerar?",
-        ]
-        for dq in default_qs:
-            if len(candidates) < 3:
-                candidates.append(dq)
+    # completar com perguntas padrão úteis
+    default_qs = [
+        "Qual é o seu objetivo específico com este pedido?",
+        "Em qual jurisdição/estado isso se aplica?",
+        "Há prazos, valores ou documentos relevantes que devemos considerar?",
+    ]
+    for dq in default_qs:
+        if len(candidates) >= 3:
+            break
+        candidates.append(dq)
     return candidates[:3]
 
 
 def enforce_three_questions(text: str) -> str:
     qs = _extract_questions_from_text(text)
-    # garante exatamente 3
-    qs = (qs + [""] * 3)[:3]
-    return "\n".join(["<clarify>", f"Q1: {qs[0]}", f"Q2: {qs[1]}", f"Q3: {qs[2]}"])
+    qs = (qs + [""] * 3)[:3]  # garante exatamente 3
+    return "\n".join(
+        [
+            "<clarify>",
+            f"Q1: {qs[0]}",
+            f"Q2: {qs[1]}",
+            f"Q3: {qs[2]}",
+            "</clarify>",
+        ]
+    )
 
 
-def parse_q123(clarify_block: str) -> list[str]:
+def parse_q123(clarify_block: str) -> List[str]:
     """Extrai Q1–Q3 de um bloco começando com <clarify>. Sempre retorna 3 strings."""
     return _extract_questions_from_text(clarify_block)
 
 
-def build_final_prompt(U0: str, Qs: list[str], U1: str) -> str:
-    qs_fmt = "\n".join([f"Q{i+1}: {q}" for i, q in enumerate(Qs[:3])])
-    prompt = dedent(
-        f"""
-        Você é um assistente útil.
-
-        Contexto:
-        - Objetivo original do usuário (U0):
-        {U0}
-        - Suas 3 perguntas:
-        {qs_fmt}
-        - Respostas do usuário (U1):
-        {U1}
-
-        Tarefa: Com base no RAG mais recente, produza a resposta final.
-        Regras:
-        - Seja direto, acionável e completo.
-        - Não faça novas perguntas.
-        """
-    ).strip()
-    return prompt
-
-
-def combine_for_retrieval(U0: str, Qs: list[str], U1: str) -> str:
+# build_final_prompt removido; usar build_final_prompt_v2
+def combine_for_retrieval(U0: str, Qs: List[str], U1: str) -> str:
     parts = [U0] + Qs[:3] + [U1]
     return "\n".join([p for p in parts if p and p.strip()])
 
 
-def is_new_topic(U0: str, Qs: list[str], U1: str) -> bool:
-    """Heurística simples: se a sobreposição de tokens entre (U0+Qs) e U1 for muito baixa,
-    consideramos que o usuário mudou de assunto.
-    """
+def is_new_topic(U0: str, Qs: List[str], U1: str) -> bool:
+    """Heurística simples: baixa interseção de tokens entre (U0+Qs) e U1 sugere assunto novo."""
     base = f"{U0} \n {' '.join(Qs[:3])}"
     t_base = set(_tokenize(base))
     t_u1 = set(_tokenize(U1))
@@ -395,10 +502,12 @@ def generate_clarify_questions(user_message: str, k: int = 5) -> str:
     return enforce_three_questions(resp.get("text", ""))
 
 
-def generate_final_answer(U0: str, Qs: list[str], U1: str, conversation_id: Optional[str] = None, k: int = 5) -> Dict[str, Any]:
+def generate_final_answer(
+    U0: str, Qs: List[str], U1: str, conversation_id: Optional[str] = None, k: int = 5
+) -> Dict[str, Any]:
     """Executa RAG com base em {U0, Qs, U1} e retorna resposta final + citações."""
     retrieval_query = combine_for_retrieval(U0, Qs, U1)
     documents = rag_retrieve(retrieval_query, k=k)
-    prompt = build_final_prompt(U0=U0, Qs=Qs, U1=U1)
+    prompt = build_final_prompt_v2(U0=U0, Qs=Qs, U1=U1)
     resp = call_model(user_message=prompt, conversation_id=conversation_id, documents=documents)
     return resp

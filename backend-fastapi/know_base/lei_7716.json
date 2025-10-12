@@ -1,0 +1,431 @@
+{
+    "metadados": {
+      "tipo_ato": "Lei",
+      "numero": "7716",
+      "ano": 1989,
+      "data_epigrafe": "1989-01-05",
+      "titulo_oficial_raw": "LEI Nº 7.716, DE 5 DE JANEIRO DE 1989",
+      "ementa": "Define os crimes resultantes de preconceito de raça ou de cor.",
+      "pais": "Brasil",
+      "orgao": "Presidência da República / Casa Civil / Subchefia para Assuntos Jurídicos",
+      "idioma": "pt-BR",
+      "identificadores": {
+        "urn": null,
+        "urn_lex": "urn:lex:br:federal:lei:1989-01-05;7716"
+      },
+      "fonte": {
+        "fonte_oficial_url": "http://legislacao.planalto.gov.br/legisla/legislacao.nsf/Viw_Identificacao/lei%207.716-1989?OpenDocument",
+        "pagina_pln_url": null,
+        "fonte_tipo": "site_oficial",
+        "observacoes": "Página HTML com redação consolidada e notas de alterações por leis posteriores."
+      },
+      "publicacao": {
+        "local_sancao": "Brasília",
+        "data_publicacao": "1989-01-06",
+        "retificacao": "1989-01-09",
+        "autoridades_assinaturas": [
+          { "nome": "José Sarney", "cargo": null },
+          { "nome": "Paulo Brossard", "cargo": null }
+        ],
+        "nota_dou": "Este texto não substitui o publicado no DOU de 6.1.1989 e retificada em 9.1.1989."
+      },
+      "versao": {
+        "estado_vigencia": "vigente",
+        "consolidacao_data": null,
+        "ultima_atualizacao": null,
+        "historico_alteracoes": []
+      }
+    },
+    "texto": {
+      "artigos": [
+        {
+          "artigo_num": "1",
+          "anchor": "#art1",
+          "caput": "Serão punidos, na forma desta Lei, os crimes resultantes de discriminação ou preconceito de raça, cor, etnia, religião ou procedência nacional.",
+          "editorial": {
+            "nova_redacao_por": { "ato": "Lei 9.459/1997", "anchor": "L9459.htm" }
+          },
+          "tags_contexto": ["escopo", "raça", "cor", "etnia", "religião", "procedência_nacional"]
+        },
+        {
+          "artigo_num": "2",
+          "anchor": "#art2",
+          "caput": "Vetado.",
+          "editorial": { "vetado": true }
+        },
+        {
+          "artigo_num": "2-A",
+          "anchor": "#art2A",
+          "caput": "Injuriar alguém, ofendendo-lhe a dignidade ou o decoro, em razão de raça, cor, etnia ou procedência nacional.",
+          "pena": "reclusão, de 2 a 5 anos, e multa",
+          "pena_normalizada": { "reclusao_anos_min": 2, "reclusao_anos_max": 5, "multa": true, "penas_acessorias": [] },
+          "paragrafos": [
+            {
+              "paragrafo": "parágrafo único",
+              "texto": "A pena é aumentada de metade se o crime for cometido mediante concurso de 2 ou mais pessoas.",
+              "majorantes": [
+                { "criterio": "concurso de 2 ou mais pessoas", "fator_min": 0.5, "fator_max": 0.5, "tipo": "aumento" }
+              ]
+            }
+          ],
+          "editorial": { "incluido_por": { "ato": "Lei 14.532/2023", "anchor": "../_Ato2023-2026/2023/Lei/L14532.htm#art1" } },
+          "tags_contexto": ["injuria_racial", "racismo"]
+        },
+        {
+          "artigo_num": "3",
+          "anchor": "#art3",
+          "caput": "Impedir ou obstar o acesso de alguém, devidamente habilitado, a qualquer cargo da Administração Direta ou Indireta, bem como das concessionárias de serviços públicos.",
+          "pena": "reclusão de 2 a 5 anos",
+          "pena_normalizada": { "reclusao_anos_min": 2, "reclusao_anos_max": 5, "multa": false, "penas_acessorias": [] },
+          "paragrafos": [
+            {
+              "paragrafo": "parágrafo único",
+              "texto": "Incorre na mesma pena quem, por motivo de discriminação de raça, cor, etnia, religião ou procedência nacional, obstar a promoção funcional.",
+              "editorial": { "incluido_por": { "ato": "Lei 12.288/2010", "anchor": "../_Ato2007-2010/2010/Lei/L12288.htm#art60" } }
+            }
+          ],
+          "tags_contexto": ["acesso_ao_servico_publico", "discriminacao_funcional"]
+        },
+        {
+          "artigo_num": "4",
+          "anchor": "#art4",
+          "caput": "Negar ou obstar emprego em empresa privada.",
+          "pena": "reclusão de 2 a 5 anos",
+          "pena_normalizada": { "reclusao_anos_min": 2, "reclusao_anos_max": 5, "multa": false, "penas_acessorias": [] },
+          "paragrafos": [
+            {
+              "paragrafo": "§1º",
+              "texto": "Incorre na mesma pena quem, por motivo de discriminação de raça ou de cor ou práticas resultantes do preconceito de descendência ou origem nacional ou étnica:",
+              "incisos": [
+                { "inciso": "I", "texto": "deixar de conceder os equipamentos necessários ao empregado em igualdade de condições com os demais trabalhadores;" },
+                { "inciso": "II", "texto": "impedir a ascensão funcional do empregado ou obstar outra forma de benefício profissional;" },
+                { "inciso": "III", "texto": "proporcionar ao empregado tratamento diferenciado no ambiente de trabalho, especialmente quanto ao salário." }
+              ],
+              "editorial": { "incluido_por": { "ato": "Lei 12.288/2010", "anchor": "../_Ato2007-2010/2010/Lei/L12288.htm#art60" } }
+            },
+            {
+              "paragrafo": "§2º",
+              "texto": "Ficará sujeito às penas de multa e de prestação de serviços à comunidade, incluindo atividades de promoção da igualdade racial, quem, em anúncios ou qualquer outra forma de recrutamento de trabalhadores, exigir aspectos de aparência próprios de raça ou etnia para emprego cujas atividades não justifiquem essas exigências.",
+              "editorial": { "incluido_por": { "ato": "Lei 12.288/2010", "anchor": "../_Ato2007-2010/2010/Lei/L12288.htm#art60" } }
+            }
+          ],
+          "tags_contexto": ["emprego_privado", "recrutamento", "discriminacao_no_trabalho"]
+        },
+        {
+          "artigo_num": "5",
+          "anchor": "#art5",
+          "caput": "Recusar ou impedir acesso a estabelecimento comercial, negando-se a servir, atender ou receber cliente ou comprador.",
+          "pena": "reclusão de 1 a 3 anos",
+          "pena_normalizada": { "reclusao_anos_min": 1, "reclusao_anos_max": 3, "multa": false, "penas_acessorias": [] },
+          "tags_contexto": ["consumo", "servicos"]
+        },
+        {
+          "artigo_num": "6",
+          "anchor": "#art6",
+          "caput": "Recusar, negar ou impedir a inscrição ou ingresso de aluno em estabelecimento de ensino público ou privado de qualquer grau.",
+          "pena": "reclusão de 3 a 5 anos",
+          "pena_normalizada": { "reclusao_anos_min": 3, "reclusao_anos_max": 5, "multa": false, "penas_acessorias": [] },
+          "paragrafos": [
+            {
+              "paragrafo": "parágrafo único",
+              "texto": "Se o crime for praticado contra menor de dezoito anos a pena é agravada de 1/3.",
+              "majorantes": [
+                { "criterio": "vítima menor de 18 anos", "fator_min": 0.3333, "fator_max": 0.3333, "tipo": "aumento" }
+              ]
+            }
+          ],
+          "tags_contexto": ["educacao", "acesso"]
+        },
+        {
+          "artigo_num": "7",
+          "anchor": "#art7",
+          "caput": "Impedir o acesso ou recusar hospedagem em hotel, pensão, estalagem, ou qualquer estabelecimento similar.",
+          "pena": "reclusão de 3 a 5 anos",
+          "pena_normalizada": { "reclusao_anos_min": 3, "reclusao_anos_max": 5, "multa": false, "penas_acessorias": [] },
+          "tags_contexto": ["hospedagem"]
+        },
+        {
+          "artigo_num": "8",
+          "anchor": "#art8",
+          "caput": "Impedir o acesso ou recusar atendimento em restaurantes, bares, confeitarias, ou locais semelhantes abertos ao público.",
+          "pena": "reclusão de 1 a 3 anos",
+          "pena_normalizada": { "reclusao_anos_min": 1, "reclusao_anos_max": 3, "multa": false, "penas_acessorias": [] },
+          "tags_contexto": ["alimentacao", "servicos"]
+        },
+        {
+          "artigo_num": "9",
+          "anchor": "#art9",
+          "caput": "Impedir o acesso ou recusar atendimento em estabelecimentos esportivos, casas de diversões, ou clubes sociais abertos ao público.",
+          "pena": "reclusão de 1 a 3 anos",
+          "pena_normalizada": { "reclusao_anos_min": 1, "reclusao_anos_max": 3, "multa": false, "penas_acessorias": [] },
+          "tags_contexto": ["esporte", "lazer"]
+        },
+        {
+          "artigo_num": "10",
+          "anchor": "#art10",
+          "caput": "Impedir o acesso ou recusar atendimento em salões de cabeleireiros, barbearias, termas ou casas de massagem ou estabelecimentos com as mesmas finalidades.",
+          "pena": "reclusão de 1 a 3 anos",
+          "pena_normalizada": { "reclusao_anos_min": 1, "reclusao_anos_max": 3, "multa": false, "penas_acessorias": [] },
+          "tags_contexto": ["servicos_pessoais"]
+        },
+        {
+          "artigo_num": "11",
+          "anchor": "#art11",
+          "caput": "Impedir o acesso às entradas sociais em edifícios públicos ou residenciais e elevadores ou escada de acesso aos mesmos:",
+          "pena": "reclusão de 1 a 3 anos",
+          "pena_normalizada": { "reclusao_anos_min": 1, "reclusao_anos_max": 3, "multa": false, "penas_acessorias": [] },
+          "tags_contexto": ["acessibilidade_predial"]
+        },
+        {
+          "artigo_num": "12",
+          "anchor": "#art12",
+          "caput": "Impedir o acesso ou uso de transportes públicos, como aviões, navios, barcas, barcos, ônibus, trens, metrô ou qualquer outro meio de transporte concedido.",
+          "pena": "reclusão de 1 a 3 anos",
+          "pena_normalizada": { "reclusao_anos_min": 1, "reclusao_anos_max": 3, "multa": false, "penas_acessorias": [] },
+          "tags_contexto": ["transporte_publico"]
+        },
+        {
+          "artigo_num": "13",
+          "anchor": "#art13",
+          "caput": "Impedir ou obstar o acesso de alguém ao serviço em qualquer ramo das Forças Armadas.",
+          "pena": "reclusão de 2 a 4 anos",
+          "pena_normalizada": { "reclusao_anos_min": 2, "reclusao_anos_max": 4, "multa": false, "penas_acessorias": [] },
+          "tags_contexto": ["forcas_armadas"]
+        },
+        {
+          "artigo_num": "14",
+          "anchor": "#art14",
+          "caput": "Impedir ou obstar, por qualquer meio ou forma, o casamento ou convivência familiar e social.",
+          "pena": "reclusão de 2 a 4 anos",
+          "pena_normalizada": { "reclusao_anos_min": 2, "reclusao_anos_max": 4, "multa": false, "penas_acessorias": [] },
+          "tags_contexto": ["familia", "convivencia_social"]
+        },
+        {
+          "artigo_num": "15",
+          "anchor": "#art15",
+          "caput": "Vetado.",
+          "editorial": { "vetado": true }
+        },
+        {
+          "artigo_num": "16",
+          "anchor": "#art16",
+          "caput": "Constitui efeito da condenação a perda do cargo ou função pública, para o servidor público, e a suspensão do funcionamento do estabelecimento particular por prazo não superior a três meses.",
+          "efeitos_da_condenacao": ["perda_do_cargo_funcao_publica", "suspensao_do_funcionamento_do_estabelecimento (até 3 meses)"],
+          "tags_contexto": ["efeitos_da_condenacao"]
+        },
+        {
+          "artigo_num": "17",
+          "anchor": "#art17",
+          "caput": "Vetado.",
+          "editorial": { "vetado": true }
+        },
+        {
+          "artigo_num": "18",
+          "anchor": "#art18",
+          "caput": "Os efeitos de que tratam os arts. 16 e 17 desta Lei não são automáticos, devendo ser motivadamente declarados na sentença.",
+          "tags_contexto": ["efeitos_da_condenacao", "sentenca"]
+        },
+        {
+          "artigo_num": "19",
+          "anchor": "#art19",
+          "caput": "Vetado.",
+          "editorial": { "vetado": true }
+        },
+        {
+          "artigo_num": "20",
+          "anchor": "#art20",
+          "caput": "Praticar, induzir ou incitar a discriminação ou preconceito de raça, cor, etnia, religião ou procedência nacional.",
+          "pena": "reclusão de 1 a 3 anos e multa",
+          "pena_normalizada": { "reclusao_anos_min": 1, "reclusao_anos_max": 3, "multa": true, "penas_acessorias": [] },
+          "editorial": { "nova_redacao_por": { "ato": "Lei 9.459/1997", "anchor": "L9459.htm" } },
+          "paragrafos": [
+            {
+              "paragrafo": "§1º",
+              "texto": "Fabricar, comercializar, distribuir ou veicular símbolos, emblemas, ornamentos, distintivos ou propaganda que utilizem a cruz suástica ou gamada, para fins de divulgação do nazismo.",
+              "pena": "reclusão de 2 a 5 anos e multa",
+              "pena_normalizada": { "reclusao_anos_min": 2, "reclusao_anos_max": 5, "multa": true, "penas_acessorias": [] },
+              "editorial": { "nova_redacao_por": { "ato": "Lei 9.459/1997", "anchor": "L9459.htm#art1" } }
+            },
+            {
+              "paragrafo": "§2º",
+              "texto": "Se qualquer dos crimes previstos neste artigo for cometido por intermédio dos meios de comunicação social, de publicação em redes sociais, da rede mundial de computadores ou de publicação de qualquer natureza:",
+              "pena": "reclusão de 2 a 5 anos e multa",
+              "pena_normalizada": { "reclusao_anos_min": 2, "reclusao_anos_max": 5, "multa": true, "penas_acessorias": [] },
+              "editorial": { "redacao_dada_por": { "ato": "Lei 14.532/2023", "anchor": "../_Ato2023-2026/2023/Lei/L14532.htm#art1" } },
+              "tags_contexto": ["meios_de_comunicacao", "redes_sociais", "internet"]
+            },
+            {
+              "paragrafo": "§2º-A",
+              "texto": "Se qualquer dos crimes previstos neste artigo for cometido no contexto de atividades esportivas, religiosas, artísticas ou culturais destinadas ao público:",
+              "pena": "reclusão de 2 a 5 anos e proibição de frequência por 3 anos a locais destinados a tais atividades",
+              "pena_normalizada": {
+                "reclusao_anos_min": 2,
+                "reclusao_anos_max": 5,
+                "multa": false,
+                "penas_acessorias": [{ "tipo": "proibicao_de_frequencia", "duracao_anos": 3, "alvo": "locais esportivos/artísticos/culturais" }]
+              },
+              "editorial": { "incluido_por": { "ato": "Lei 14.532/2023", "anchor": "../_Ato2023-2026/2023/Lei/L14532.htm#art1" } },
+              "tags_contexto": ["esporte", "arte", "religiao", "publico"]
+            },
+            {
+              "paragrafo": "§2º-B",
+              "texto": "Sem prejuízo da pena correspondente à violência, incorre nas mesmas penas previstas no caput deste artigo quem obstar, impedir ou empregar violência contra quaisquer manifestações ou práticas religiosas.",
+              "editorial": { "incluido_por": { "ato": "Lei 14.532/2023", "anchor": "../_Ato2023-2026/2023/Lei/L14532.htm#art1" } },
+              "tags_contexto": ["liberdade_religiosa", "manifestações_religiosas"]
+            },
+            {
+              "paragrafo": "§3º",
+              "texto": "No caso do § 2º deste artigo, o juiz poderá determinar, ouvido o Ministério Público ou a pedido deste, ainda antes do inquérito policial, sob pena de desobediência:",
+              "editorial": { "redacao_dada_por": { "ato": "Lei 14.532/2023", "anchor": "../_Ato2023-2026/2023/Lei/L14532.htm#art1" } },
+              "incisos": [
+                { "inciso": "I", "texto": "o recolhimento imediato ou a busca e apreensão dos exemplares do material respectivo.", "editorial": { "incluido_por": { "ato": "Lei 9.459/1997", "anchor": "L9459.htm#art1" } } },
+                { "inciso": "II", "texto": "a cessação das respectivas transmissões radiofônicas, televisivas, eletrônicas ou da publicação por qualquer meio;", "editorial": { "redacao_dada_por": { "ato": "Lei 12.735/2012", "anchor": "../_Ato2011-2014/2012/Lei/L12735.htm#art5" } } },
+                { "inciso": "III", "texto": "a interdição das respectivas mensagens ou páginas de informação na rede mundial de computadores.", "editorial": { "incluido_por": { "ato": "Lei 12.288/2010", "anchor": "../_Ato2007-2010/2010/Lei/L12288.htm#art64" } } }
+              ],
+              "tags_contexto": ["medidas_cautelares", "retirada_de_conteudo", "busca_e_apreensao"]
+            },
+            {
+              "paragrafo": "§4º",
+              "texto": "Na hipótese do § 2º, constitui efeito da condenação, após o trânsito em julgado da decisão, a destruição do material apreendido.",
+              "editorial": { "incluido_por": { "ato": "Lei 9.459/1997", "anchor": "L9459.htm#art1" } },
+              "tags_contexto": ["efeitos_da_condenacao", "destruicao_de_material"]
+            }
+          ],
+          "tags_contexto": ["propaganda_discriminatoria", "racismo"]
+        },
+        {
+          "artigo_num": "20-A",
+          "anchor": "#art20A",
+          "caput": "Os crimes previstos nesta Lei terão as penas aumentadas de 1/3 até a metade, quando ocorrerem em contexto ou com intuito de descontração, diversão ou recreação.",
+          "majorantes": [
+            { "criterio": "contexto de descontração/diversão/recreação", "fator_min": 0.3333, "fator_max": 0.5, "tipo": "aumento" }
+          ],
+          "editorial": { "incluido_por": { "ato": "Lei 14.532/2023", "anchor": "../_Ato2023-2026/2023/Lei/L14532.htm#art1" } },
+          "tags_contexto": ["recreacao", "ambiente_social"]
+        },
+        {
+          "artigo_num": "20-B",
+          "anchor": "#art20B",
+          "caput": "Os crimes previstos nos arts. 2º-A e 20 desta Lei terão as penas aumentadas de 1/3 até a metade, quando praticados por funcionário público, no exercício de suas funções ou a pretexto de exercê-las.",
+          "majorantes": [
+            { "criterio": "praticado por funcionário público no exercício ou a pretexto", "fator_min": 0.3333, "fator_max": 0.5, "tipo": "aumento" }
+          ],
+          "editorial": { "incluido_por": { "ato": "Lei 14.532/2023", "anchor": "../_Ato2023-2026/2023/Lei/L14532.htm#art1" } },
+          "atos_citados": [{ "tipo": "Decreto-Lei", "numero": "2848", "ano": 1940, "titulo": "Código Penal" }],
+          "tags_contexto": ["funcionario_publico", "majorante_funcional"]
+        },
+        {
+          "artigo_num": "20-C",
+          "anchor": "#art20C",
+          "caput": "Na interpretação desta Lei, o juiz deve considerar como discriminatória qualquer atitude ou tratamento dado à pessoa ou a grupos minoritários que cause constrangimento, humilhação, vergonha, medo ou exposição indevida, e que usualmente não se dispensaria a outros grupos em razão da cor, etnia, religião ou procedência.",
+          "editorial": { "incluido_por": { "ato": "Lei 14.532/2023", "anchor": "../_Ato2023-2026/2023/Lei/L14532.htm#art1" } },
+          "tags_contexto": ["interpretacao", "discriminacao", "grupos_minoritarios"]
+        },
+        {
+          "artigo_num": "20-D",
+          "anchor": "#art20D",
+          "caput": "Em todos os atos processuais, cíveis e criminais, a vítima dos crimes de racismo deverá estar acompanhada de advogado ou defensor público.",
+          "editorial": { "incluido_por": { "ato": "Lei 14.532/2023", "anchor": "../_Ato2023-2026/2023/Lei/L14532.htm#art1" } },
+          "tags_contexto": ["assistencia_juridica", "vitima"]
+        },
+        {
+          "artigo_num": "21",
+          "anchor": "#art21",
+          "caput": "Esta Lei entra em vigor na data de sua publicação.",
+          "editorial": { "renumerado_por": { "ato": "Lei 8.081/1990", "anchor": "L8081.htm" } },
+          "tags_contexto": ["vigencia"]
+        },
+        {
+          "artigo_num": "22",
+          "anchor": "#art22",
+          "caput": "Revogam-se as disposições em contrário.",
+          "editorial": { "renumerado_por": { "ato": "Lei 8.081/1990", "anchor": "L8081.htm" } },
+          "tags_contexto": ["revogacao"]
+        }
+      ]
+    },
+    "anotacoes": {
+      "atos_citados": [
+        { "tipo": "Lei", "numero": "9459", "ano": 1997, "titulo": "Altera a Lei 7.716 (racismo) e o CP" },
+        { "tipo": "Lei", "numero": "12288", "ano": 2010, "titulo": "Estatuto da Igualdade Racial" },
+        { "tipo": "Lei", "numero": "12735", "ano": 2012, "titulo": "Crimes informáticos (ajuste transmissões §3º, II)" },
+        { "tipo": "Lei", "numero": "14532", "ano": 2023, "titulo": "Tipifica injúria racial como racismo; novas majorantes" },
+        { "tipo": "Lei", "numero": "8081", "ano": 1990, "titulo": "Renumera artigos 21 e 22" },
+        { "tipo": "Decreto-Lei", "numero": "2848", "ano": 1940, "titulo": "Código Penal (referência no art. 20-B)" }
+      ],
+      "relacoes_normativas": {
+        "alterada_por": [
+          { "ato": "Lei 9.459/1997", "efeitos": ["nova redação do art. 1º e art. 20 caput/§1º/§4º; inclusão de medidas no §3º I"] },
+          { "ato": "Lei 12.288/2010", "efeitos": ["inclui art. 3º par. único; art. 4º §1º e §2º; art. 20 §3º III"] },
+          { "ato": "Lei 12.735/2012", "efeitos": ["redação do art. 20 §3º II (meios eletrônicos)"] },
+          { "ato": "Lei 14.532/2023", "efeitos": ["inclui art. 2º-A; cria arts. 20-A a 20-D; ajusta art. 20 §2º e §3º"] },
+          { "ato": "Lei 8.081/1990", "efeitos": ["renumera artigos de vigência e revogação (21 e 22)"] }
+        ]
+      },
+      "jurisprudencia_referida": [
+        { "tribunal": "STF", "processo": "ADO 26", "nota": "Menção 'Vide ADO nº 26' no topo da página oficial." }
+      ],
+      "derivacoes": {
+        "alcance_constitucional": [
+          {
+            "referencia": "CF/1988 art. 5º, XLII",
+            "descricao": "Racismo é crime inafiançável e imprescritível; a Lei 7.716/1989 define crimes resultantes de preconceito.",
+            "derivacao_inferencia": true
+          }
+        ]
+      }
+    },
+    "conteudo_plano": "Lei 7.716/1989 (Lei do Crime Racial). Art. 1º define o escopo. Arts. 3º–14 tipificam condutas (acesso a cargos, emprego, serviços, educação, hospedagem, transportes, Forças Armadas, casamento/convivência), com penas. Arts. 2º, 15, 17, 19 vetados. Art. 16/18 tratam de efeitos da condenação. Art. 20 tipifica propaganda/indução/incitação ao racismo, com §§ (suástica; meios de comunicação/redes/internet; contextos esportivo, religioso, artístico e cultural; medidas cautelares; destruição de material). Arts. 20-A a 20-D criam majorantes, interpretação e garantia de assistência à vítima. Arts. 21–22 (vigência/revogação).",
+    "rag_chunks": [
+      { "id": "ementa", "anchor": "#art1", "text": "Define crimes de racismo e discriminação (raça, cor, etnia, religião, procedência nacional)." },
+      { "id": "injuria_racial", "anchor": "#art2A", "text": "Art. 2º-A: injúria racial como crime de racismo; pena 2–5 anos e multa; majorante por concurso de pessoas." },
+      { "id": "funcao_publica", "anchor": "#art3", "text": "Art. 3º: discriminação no acesso a cargos públicos; parágrafo único sobre promoção funcional." },
+      { "id": "emprego_privado", "anchor": "#art4", "text": "Art. 4º: negar/obstar emprego; §§ com práticas discriminatórias e exigências de aparência." },
+      { "id": "servicos_consumo", "anchor": "#art5", "text": "Art. 5º: recusa em estabelecimentos comerciais; pena 1–3 anos." },
+      { "id": "educacao_menor", "anchor": "#art6", "text": "Art. 6º: recusa em escolas; majorante de 1/3 se vítima menor." },
+      { "id": "hospedagem", "anchor": "#art7", "text": "Art. 7º: recusa em hotéis/pensões; pena 3–5 anos." },
+      { "id": "alimentacao", "anchor": "#art8", "text": "Art. 8º: recusa em restaurantes/bares; pena 1–3 anos." },
+      { "id": "lazer", "anchor": "#art9", "text": "Art. 9º: recusa em esportes/clubes; pena 1–3 anos." },
+      { "id": "pessoais", "anchor": "#art10", "text": "Art. 10: recusa em cabeleireiros/barbearias/termas; pena 1–3 anos." },
+      { "id": "predial", "anchor": "#art11", "text": "Art. 11: impedimento de acesso social/elevadores; pena 1–3 anos." },
+      { "id": "transportes", "anchor": "#art12", "text": "Art. 12: impedimento de uso de transportes públicos; pena 1–3 anos." },
+      { "id": "forcas_armadas", "anchor": "#art13", "text": "Art. 13: impedimento de acesso às Forças Armadas; pena 2–4 anos." },
+      { "id": "familia", "anchor": "#art14", "text": "Art. 14: obstar casamento/convivência familiar/social; pena 2–4 anos." },
+      { "id": "efeitos", "anchor": "#art16", "text": "Art. 16/18: efeitos da condenação e necessidade de declaração motivada." },
+      { "id": "art20_geral", "anchor": "#art20", "text": "Art. 20 caput: praticar/induzir/incitar discriminação; pena 1–3 anos e multa." },
+      { "id": "art20_suastica", "anchor": "#art20", "text": "§1º: suástica/nazismo; pena 2–5 anos e multa." },
+      { "id": "art20_meios", "anchor": "#art20", "text": "§2º: meios de comunicação/redes/internet; pena 2–5 anos e multa." },
+      { "id": "art20_contextos", "anchor": "#art20A", "text": "§2º-A: contexto esportivo/religioso/artístico/cultural; pena 2–5 + proibição de frequência 3 anos. §2º-B: proteção a manifestações religiosas." },
+      { "id": "art20_medidas", "anchor": "#art20", "text": "§3º: medidas cautelares (recolhimento, cessação de transmissões, interdição de páginas). §4º: destruição do material." },
+      { "id": "majorantes", "anchor": "#art20A", "text": "Arts. 20-A (recreação) e 20-B (funcionário público) — majorantes 1/3 a 1/2." },
+      { "id": "interpretacao_vitima", "anchor": "#art20C", "text": "Art. 20-C (interpretação) e 20-D (assistência à vítima)." },
+      { "id": "vigencia_revogacao", "anchor": "#art21", "text": "Art. 21 (vigência) e 22 (revogação) — renumerados pela Lei 8.081/1990." }
+    ],
+    "validation": {
+      "has_artigos": true,
+      "header_consistente": true,
+      "has_mojibake": false,
+      "campos_adicionados": [
+        "metadados.fonte",
+        "metadados.publicacao",
+        "metadados.versao",
+        "texto.artigos[*].anchor",
+        "texto.artigos[*].pena_normalizada",
+        "texto.artigos[*].paragrafos[*].incisos",
+        "texto.artigos[*].paragrafos[*].majorantes",
+        "texto.artigos[*].editorial",
+        "anotacoes.relacoes_normativas",
+        "anotacoes.jurisprudencia_referida",
+        "anotacoes.derivacoes",
+        "rag_chunks[*].anchor"
+      ]
+    },
+    "flags_completude": {
+      "texto_integral_faltante": [],
+      "observacoes_gerais": [
+        "A página inclui links de referência: Mensagem de veto, 'Vide Lei nº 12.735/2012' e 'Vide ADO nº 26 (STF)'.",
+        "Dispositivos com 'Redação dada' e 'Incluído por' foram marcados em 'editorial'."
+      ]
+    }
+  }
+  

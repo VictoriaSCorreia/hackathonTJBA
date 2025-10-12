@@ -48,6 +48,16 @@ make revision
 
 ## Endpoints
 
+### Base de conhecimento (KB)
+
+- A KB �� carregada automaticamente a partir do primeiro diret��rio existente na ordem: `backend-fastapi/know_base`, `backend-fastapi/kb`, `./know_base`, `./kb`.
+- Se `KB_DIR` estiver definida no ambiente do servi��o, ela tem prioridade sobre os caminhos acima.
+- O reposit��rio inclui `backend-fastapi/know_base` com 3 leis estruturadas e priorizadas no RAG:
+  - Lei 7.716/1989 (Lei do Crime Racial)
+  - Lei 12.288/2010 (Estatuto da Igualdade Racial)
+  - Lei 14.532/2023 (altera a Lei 7.716/1989 e o CP)
+- Quando presentes, essas leis s��o sempre consideradas entre os documentos enviados ao modelo, al��m dos top‑k selecionados por palavras‑chave.
+
 - Criar sessão de convidado
   - `POST /api/v1/sessions`
   - Resposta 201
