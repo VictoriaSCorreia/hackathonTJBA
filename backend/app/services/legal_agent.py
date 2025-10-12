@@ -17,6 +17,8 @@ import re
 from datetime import datetime
 from functools import lru_cache
 from typing import Any, Dict, List, Optional
+import threading
+import os
 
 import cohere
 from app.core.config import settings
@@ -378,6 +380,73 @@ def call_model(
     }
 
 
+def call_model_with_timeout(
+    user_message: str,
+    conversation_id: Optional[str],
+    documents: Optional[List[Dict[str, Any]]] = None,
+    *,
+    mode: Optional[str] = None,
+    timeout_s: Optional[int] = None,
+) -> Dict[str, Any]:
+    """Wrapper que aplica timeout e fallback amigável sobre call_model.
+    - mode: 'clarify' para perguntas, 'final' para resposta final.
+    - timeout_s: tempo máximo em segundos (default 55 via env MODEL_TIMEOUT_SEC).
+    """
+    if timeout_s is None:
+        try:
+            timeout_s = int(os.getenv("MODEL_TIMEOUT_SEC", "55"))
+        except Exception:
+            timeout_s = 55
+
+    result: Dict[str, Any] | None = None
+    error: Exception | None = None
+
+    def _worker():
+        nonlocal result, error
+        try:
+            result = call_model(user_message=user_message, conversation_id=conversation_id, documents=documents)
+        except Exception as e:
+            error = e
+
+    th = threading.Thread(target=_worker, daemon=True)
+    th.start()
+    th.join(timeout_s)
+
+    if th.is_alive():
+        if mode == "clarify":
+            fb_text = "\n".join([
+                "<clarify>",
+                "Q1: Qual é a situação específica que você deseja entender?",
+                "Q2: Você possui evidências (mensagens, e-mails, testemunhas, protocolos)?",
+                "Q3: Quando e onde ocorreu?",
+                "</clarify>",
+            ])
+            return {"text": fb_text, "citations": []}
+        else:
+            fb_text = (
+                "## Entendimento do caso\n"
+                "Com as informações fornecidas, é possível apenas um parecer provisório.\n\n"
+                "## Enquadramento jurídico possível\n"
+                "Em tese, pode haver diferentes enquadramentos — dependemos de detalhes de contexto e evidências.\n\n"
+                "## Leis potencialmente aplicáveis\n"
+                "Prioritariamente: Lei 7.716/1989 e Lei 14.532/2023; a Lei 12.288/2010 pode complementar o contexto.\n\n"
+                "## Lacunas que podem mudar o enquadramento\n"
+                "- Descrição objetiva dos fatos (quem, quando, onde, como).\n"
+                "- Evidências (mensagens, e-mails, testemunhas, registros).\n"
+                "- Contexto do local e eventual histórico.\n\n"
+                "## Veredito provisório\n"
+                "É plausível que, com mais detalhes e evidências, seja possível indicar o fundamento jurídico mais adequado.\n\n"
+                "## Aviso legal\n"
+                "Sou uma IA. Minha análise é informativa e não substitui consulta com advogado habilitado."
+            )
+            return {"text": fb_text, "citations": []}
+
+    if error is not None:
+        # Se houve erro imediato, propaga
+        raise error
+    return result or {"text": "", "citations": []}
+
+
 # --------------------------- Two-step policy helpers ---------------------------
 def _ensure_max_len(s: str, max_len: int = 240) -> str:
     s = re.sub(r"\s+", " ", s).strip()
@@ -493,7 +562,7 @@ def generate_clarify_questions(user_message: str, k: int = 5) -> str:
     """Executa RAG sobre U0 e retorna um bloco <clarify> com Q1–Q3."""
     documents = rag_retrieve(user_message, k=k)
     prompt = build_clarify_prompt(user_message)
-    resp = call_model(user_message=prompt, conversation_id=None, documents=documents)
+    resp = call_model_with_timeout(user_message=prompt, conversation_id=None, documents=documents, mode="clarify")
     return enforce_three_questions(resp.get("text", ""))
 
 
@@ -504,5 +573,5 @@ def generate_final_answer(
     retrieval_query = combine_for_retrieval(U0, Qs, U1)
     documents = rag_retrieve(retrieval_query, k=k)
     prompt = build_final_prompt_v2(U0=U0, Qs=Qs, U1=U1)
-    resp = call_model(user_message=prompt, conversation_id=conversation_id, documents=documents)
+    resp = call_model_with_timeout(user_message=prompt, conversation_id=conversation_id, documents=documents, mode="final")
     return resp

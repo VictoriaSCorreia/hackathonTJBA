@@ -136,10 +136,17 @@ function ChatPage({ setActivePage }) {
       }
 
       // Send user message to conversation
-      const msgResp = await api.post(`/conversations/${convId}/messages`, {
-        role: 'user',
-        content: trimmed,
-      });
+      const msgResp = await api.post(
+        `/conversations/${convId}/messages`,
+        {
+          role: 'user',
+          content: trimmed,
+        },
+        {
+          // Garante timeout estendido especificamente para o passo de análise final
+          timeout: 180_000,
+        }
+      );
 
       const assistantText: string | undefined = msgResp?.data?.content;
       if (assistantText) {
