@@ -349,17 +349,20 @@ function ChatPage({ setActivePage }) {
           </div>
         </footer>
 
-        {/* Transcript / Chat History */}
+        {/* Transcript / Chat History (side drawer) */}
         {isTranscriptVisible && (
-          <div className="absolute bottom-0 left-0 right-0 z-20">
+          <div className="absolute top-0 right-0 bottom-0 z-20">
             <div
-              className="mx-auto max-w-4xl bg-gray-800/80 backdrop-blur-md rounded-t-2xl transition-transform duration-300 ease-in-out animate-fade-in-up"
-              style={{ transform: `translateY(${isTranscriptVisible ? '0%' : '100%'})` }}
+              className="ml-auto h-full w-full sm:w-5/6 md:w-[420px] lg:w-[480px] bg-gray-800/90 backdrop-blur-md transition-transform duration-300 ease-in-out shadow-xl rounded-none md:rounded-l-2xl flex flex-col"
+              style={{ transform: `translateX(${isTranscriptVisible ? '0%' : '100%'})` }}
             >
-              <button onClick={() => setIsTranscriptVisible(false)} className="w-full flex justify-center pt-3 pb-1 cursor-pointer">
-                <div className="w-10 h-1.5 bg-gray-600 rounded-full"></div>
-              </button>
-              <div ref={chatContainerRef} className="h-[40vh] overflow-y-auto space-y-4 p-4 pr-2">
+              <div className="flex items-center justify-between px-3 py-2 border-b border-gray-700">
+                <span className="text-sm text-gray-300">Transcript</span>
+                <button onClick={() => setIsTranscriptVisible(false)} className="p-1.5 rounded hover:bg-white/10">
+                  <i data-feather="x" className="w-4 h-4"></i>
+                </button>
+              </div>
+              <div ref={chatContainerRef} className="flex-1 overflow-y-auto space-y-4 p-4 pr-2">
                 {messages.map((message, index) => (
                   <div key={index} className={`group flex items-end gap-2 animate-fade-in-up ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                     {message.sender === 'ai' && (

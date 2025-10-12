@@ -1,0 +1,55 @@
+   1: services:
+   1:   db:
+   1:     image: postgres:16
+   1:     environment:
+   1:       POSTGRES_DB: app
+   1:       POSTGRES_USER: postgres
+   1:       POSTGRES_PASSWORD: psycopg
+   1:     restart: unless-stopped
+   1:     ports:
+   1:       - "5432:5432"
+   1:     volumes:
+   1:       - pgdata:/var/lib/postgresql/data
+   1:     healthcheck:
+   1:       test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
+   1:       interval: 5s
+   1:       timeout: 3s
+   1:       retries: 10
+   1:       start_period: 10s
+   1: 
+   1:   api:
+   1:     build:
+   1:       context: ./backend
+   1:     depends_on:
+   1:       db:
+   1:         condition: service_healthy
+   1:     environment:
+   1:       - DATABASE_URL=postgresql+psycopg://postgres:psycopg@db:5432/app
+   1:       - APP_ENV=dev
+   1:       # Override at runtime: `COHERE_API_KEY=... docker compose up`
+   1:       - COHERE_API_KEY=0tPz7wM2BM7abQ6DlC2Hfmk3QLPc8Oa9kvXK4lJa
+   1:     ports:
+   1:       - "8000:8000"
+   1:     restart: unless-stopped
+   1:     command: sh -lc "poetry run alembic upgrade head && poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+   1:     working_dir: /app
+   1: 
+   1:   frontend:
+   1:     image: node:20-alpine
+   1:     working_dir: /app
+   1:     depends_on:
+   1:       - api
+   1:     environment:
+   1:       # Usado pelo proxy do Vite dentro do container
+   1:       - BACKEND_URL=http://api:8000
+   1:       # Optionally forward ElevenLabs key from host env
+   1:       - VITE_ELEVENLABS_API_KEY=${VITE_ELEVENLABS_API_KEY:-}
+   1:     volumes:
+   1:       - ./frontend:/app
+   1:     ports:
+   1:       - "5173:5173"
+   1:     restart: unless-stopped
+   1:     command: sh -lc "npm ci && npm run dev -- --host 0.0.0.0 --port 5173"
+   1: 
+   1: volumes:
+   1:   pgdata:
