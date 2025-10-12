@@ -1,13 +1,15 @@
 import { useState, useRef, useEffect } from 'react';
-// Todas as chamadas devem passar por `api` (com proxy do Vite)
 import feather from 'feather-icons';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
+import ChatHeader from '../Components/chat/ChatHeader.tsx';
+import ChatFooter from '../Components/chat/ChatFooter.tsx';
 
 import Modal from '../Components/Modal';
-import api, { ensureGuestSession } from '../api';
+import api, { ensureGuestSession } from '../api.ts';
+import { SetActivePageProps } from '../App';
 
-interface Message {
+export interface Message {
   text: string;
   sender: 'user' | 'ai';
 }
@@ -17,7 +19,7 @@ const INITIAL_MESSAGE: Message = {
   sender: 'ai'
 };
 
-function ChatPage({ setActivePage }) {
+function ChatPage({ setActivePage }: SetActivePageProps) {
   const [messages, setMessages] = useState<Message[]>(() => {
     try {
       const savedMessages = localStorage.getItem('chatHistory');
@@ -34,12 +36,11 @@ function ChatPage({ setActivePage }) {
   const [isAiTyping, setIsAiTyping] = useState(false);
   const [copiedMessageIndex, setCopiedMessageIndex] = useState<number | null>(null);
   const [isTranscriptVisible, setIsTranscriptVisible] = useState(false);
-  const [isTranscriptionActive, setIsTranscriptionActive] = useState(false);
   const [conversationId, setConversationId] = useState<number | null>(null);
   const [waitingClarification, setWaitingClarification] = useState(false);
-  const transcriptionIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioChunksRef = useRef<Blob[]>([]);
+
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null); // This was missing
+  const audioChunksRef = useRef<Blob[]>([]); // This was missing
   const chatContainerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -49,7 +50,6 @@ function ChatPage({ setActivePage }) {
         behavior: 'smooth'
       });
     }
-    feather.replace();
   }, [messages]);
 
   // Effect to save messages to local storage whenever they change.
@@ -64,29 +64,8 @@ function ChatPage({ setActivePage }) {
   // Ensure guest session exists so backend accepts requests
   useEffect(() => {
     void ensureGuestSession();
+    feather.replace();
   }, []);
-
-  useEffect(() => {
-    if (isTranscriptionActive) {
-      // Simulate receiving transcribed text every 3 seconds
-      transcriptionIntervalRef.current = setInterval(() => {
-        const transcribedText = [
-          "This is a simulated transcribed message.",
-          "The system is now actively listening and transcribing.",
-          "Here is another piece of transcribed audio.",
-          "Okay, I've got that down."
-        ][Math.floor(Math.random() * 4)];
-
-        const newMessage = { text: transcribedText, sender: 'user' as const };
-        setMessages(prev => [...prev, newMessage]);
-      }, 3000);
-    } else {
-      if (transcriptionIntervalRef.current) {
-        clearInterval(transcriptionIntervalRef.current);
-      }
-    }
-    return () => { if (transcriptionIntervalRef.current) clearInterval(transcriptionIntervalRef.current) };
-  }, [isTranscriptionActive]);
 
   const playAudioResponse = async (text: string) => {
     // Recurso opcional: habilite via VITE_TTS_ENABLED=true
@@ -275,7 +254,7 @@ function ChatPage({ setActivePage }) {
     <>
       <Modal
         isOpen={isClearHistoryModalOpen}
-        onClose={() => setClearHistoryModalOpen(false)} // This was missing
+        onClose={() => setClearHistoryModalOpen(false)}
         onConfirm={() => { 
           setMessages([INITIAL_MESSAGE]); 
           setConversationId(null);
@@ -287,129 +266,62 @@ function ChatPage({ setActivePage }) {
       >
         <p>Are you sure you want to delete the entire chat history? This action cannot be undone.</p>
       </Modal>
-      <div className="bg-gray-900 text-white h-screen flex flex-col">
-        {/* Header */}
-        <header className="absolute top-0 left-0 right-0 z-10">
-          <div className="py-4 px-6 max-w-4xl mx-auto">
-            <div className="flex items-center justify-end">
-              <button onClick={() => setActivePage('settings')} className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition">
-                <i data-feather="settings" className="text-white w-5 h-5"></i>
-              </button>
-            </div>
-          </div>
-        </header>
+      <div className="bg-gray-50 text-gray-800 h-screen flex flex-col">
+        <ChatHeader
+          onClearHistory={handleClearHistory} // Assuming ChatHeader exists and uses this
+          onGoToSettings={() => setActivePage('settings')} // Assuming ChatHeader exists and uses this
+        />
 
-        {/* Main Call Area */}
-        <main className="flex-1 flex flex-col items-center justify-center text-center p-4">
-          <div className="relative w-32 h-32 md:w-40 md:h-40">
-            <div className={`absolute inset-0 rounded-full bg-indigo-500 transition-transform transform ${isRecording ? 'scale-110' : 'scale-100'}`}></div>
-            <div className={`absolute inset-0 rounded-full bg-indigo-400 animate-pulse-slow ${isRecording ? 'scale-125' : 'scale-100'} transition-transform`}></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-indigo-600 flex items-center justify-center shadow-lg">
-                <i data-feather="mic" className="text-white w-12 h-12 md:w-16 md:h-16"></i>
-              </div>
-            </div>
-          </div>
-          <h1 className="text-2xl md:text-3xl font-bold mt-6 md:mt-8">judi</h1>
-          <p className="text-gray-400 mt-2 text-sm md:text-base">{isRecording ? "Listening..." : "Tap the mic to talk"}</p>
-        </main>
-
-        {/* Footer / Input Area */}
-        <footer className="w-full p-4 bg-gray-900">
-          <div className="max-w-4xl mx-auto flex items-center justify-center space-x-2 md:space-x-4">
-            <button
-              onClick={() => setIsTranscriptVisible(prev => !prev)}
-              className="p-2 md:p-3 rounded-full text-white bg-gray-700 hover:bg-gray-600 transition"
-              title={isTranscriptVisible ? "Hide Transcript" : "Show Transcript"}
-            >
-              <i data-feather="message-square" className="w-5 h-5 md:w-6 md:h-6"></i>
-            </button>
-            <div className="relative flex-1 max-w-xl">
-              <input
-                type="text"
-                value={inputMessage}
-                onChange={(e) => setInputMessage(e.target.value)}
-                onKeyDown={handleKeyDown}
-                className="w-full px-4 py-2 md:px-5 md:py-3 bg-gray-800 border border-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white"
-                placeholder="Or type a message..."
-              />
-              <button
-                onClick={() => handleSendMessage(inputMessage)}
-                className="absolute right-1.5 top-1/2 transform -translate-y-1/2 p-1.5 md:p-2 rounded-full bg-indigo-500 hover:bg-indigo-600 transition"
-              >
-                <i data-feather="send" className="text-white w-4 h-4 md:w-5 md:h-5"></i>
-              </button>
-            </div>
-            <button
-              onClick={toggleRecording}
-              className={`p-4 md:p-5 rounded-full text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${isRecording ? 'bg-red-500 hover:bg-red-600 scale-110' : 'bg-indigo-500 hover:bg-indigo-600'}`}
-            >
-              {isRecording ? <i data-feather="square" className="w-6 h-6 md:w-8 md:h-8"></i> : <i data-feather="mic" className="w-6 h-6 md:w-8 md:h-8"></i>}
-            </button>
-          </div>
-        </footer>
-
-        {/* Transcript / Chat History (side drawer) */}
-        {isTranscriptVisible && (
-          <div className="absolute top-0 right-0 bottom-0 z-20">
-            <div
-              className="ml-auto h-full w-full sm:w-5/6 md:w-[420px] lg:w-[480px] bg-gray-800/90 backdrop-blur-md transition-transform duration-300 ease-in-out shadow-xl rounded-none md:rounded-l-2xl flex flex-col"
-              style={{ transform: `translateX(${isTranscriptVisible ? '0%' : '100%'})` }}
-            >
-              <div className="flex items-center justify-between px-3 py-2 border-b border-gray-700">
-                <span className="text-sm text-gray-300">Transcript</span>
-                <button onClick={() => setIsTranscriptVisible(false)} className="p-1.5 rounded hover:bg-white/10">
-                  <i data-feather="x" className="w-4 h-4"></i>
-                </button>
-              </div>
-              <div ref={chatContainerRef} className="flex-1 overflow-y-auto space-y-4 p-4 pr-2">
-                {messages.map((message, index) => (
-                  <div key={index} className={`group flex items-end gap-2 animate-fade-in-up ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                    {message.sender === 'ai' && (
-                      <button
-                        onClick={() => handleCopyMessage(message.text, index)}
-                        className="p-1 rounded-full text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity"
-                        title="Copy message"
-                      >
-                        {copiedMessageIndex === index ? <i data-feather="check" className="w-3.5 h-3.5 text-green-500" /> : <i data-feather="copy" className="w-3.5 h-3.5" />}
-                      </button>
-                    )}
-                    <div className={`max-w-[80%] rounded-xl p-3 ${message.sender === 'user' ? 'bg-indigo-500 text-white' : 'bg-gray-700 text-gray-200'}`}>
-                      {message.sender === 'ai' ? (
-                        <div
-                          className="prose prose-sm prose-invert max-w-none"
-                          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(message.text) as string) }}
-                        />
-                      ) : (
-                        <p>{message.text}</p>
-                      )}
-                    </div>
-                    {message.sender === 'user' && (
-                      <button
-                        onClick={() => handleCopyMessage(message.text, index)}
-                        className="p-1 rounded-full text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity"
-                        title="Copy message"
-                      >
-                        {copiedMessageIndex === index ? <i data-feather="check" className="w-3.5 h-3.5 text-green-500" /> : <i data-feather="copy" className="w-3.5 h-3.5" />}
-                      </button>
-                    )}
+        {!isTranscriptVisible ? (
+          <main className="flex-1 flex flex-col items-center justify-center text-center p-4">
+            <button onClick={toggleRecording} className="relative w-32 h-32 md:w-40 md:h-40 focus:outline-none focus:ring-4 focus:ring-[#175289]/50 rounded-full transition-transform transform hover:scale-105 active:scale-95">
+              <div className="relative w-full h-full">
+                <div className={`absolute inset-0 rounded-full transition-transform transform ${isRecording ? 'bg-[#e7232e]/20 scale-110 animate-pulse-slow' : 'bg-[#175289]/20 scale-100'}`}></div>
+                <div className={`absolute inset-0 rounded-full transition-transform duration-300 ${isRecording ? 'bg-[#e7232e]/10 animate-pulse-slow scale-125' : 'bg-[#175289]/10 scale-100'}`}></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className={`w-24 h-24 md:w-32 md:h-32 rounded-full flex items-center justify-center shadow-lg transition-colors ${isRecording ? 'bg-[#e7232e]' : 'bg-[#175289]'}`}>
+                    <i data-feather="mic" className={`text-white w-12 h-12 md:w-16 md:h-16 transition-transform duration-300 ${isRecording ? 'scale-110' : 'scale-100'}`}></i>
                   </div>
-                ))}
-                {isAiTyping && (
-                  <div className="flex items-end gap-2 animate-fade-in-up justify-start">
-                    <div className="max-w-[80%] rounded-xl p-3 bg-gray-700 text-gray-200">
-                      <div className="flex items-center space-x-1">
-                        <span className="typing-dot animate-pulse-fast"></span>
-                        <span className="typing-dot animate-pulse-fast animation-delay-200"></span>
-                        <span className="typing-dot animate-pulse-fast animation-delay-400"></span>
-                      </div>
-                    </div>
-                  </div>
+                </div>
+              </div>
+            </button>
+            <h1 className="text-2xl md:text-3xl font-bold mt-6 md:mt-8">judi</h1>
+            <p className={`mt-2 text-sm md:text-base transition-colors ${isRecording ? 'text-[#e7232e] font-medium' : 'text-gray-500'}`}>{isRecording ? "Listening..." : "Tap mic to start"}</p>
+          </main>
+        ) : (
+          <main ref={chatContainerRef} className="flex-1 overflow-y-auto space-y-4 p-4 pt-20 pb-4">
+            {messages.map((message, index) => (
+              <div key={index} className={`group flex items-end gap-2 animate-fade-in-up ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
+                {message.sender === 'ai' && (
+                  <button onClick={() => handleCopyMessage(message.text, index)} className="p-1 rounded-full text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity" title="Copy message">
+                    {copiedMessageIndex === index ? <i data-feather="check" className="w-3.5 h-3.5 text-green-500" /> : <i data-feather="copy" className="w-3.5 h-3.5" />}
+                  </button>
+                )}
+                <div className={`max-w-[80%] rounded-xl p-3 ${message.sender === 'user' ? 'bg-[#175289] text-white' : 'bg-gray-100 text-gray-800'}`}>
+                  {message.sender === 'ai' ? <div className="prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(message.text) as string) }} /> : <p>{message.text}</p>}
+                </div>
+                {message.sender === 'user' && (
+                  <button onClick={() => handleCopyMessage(message.text, index)} className="p-1 rounded-full text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity" title="Copy message">
+                    {copiedMessageIndex === index ? <i data-feather="check" className="w-3.5 h-3.5 text-green-500" /> : <i data-feather="copy" className="w-3.5 h-3.5" />}
+                  </button>
                 )}
               </div>
-            </div>
-          </div>
+            ))}
+            {isAiTyping && <div className="flex items-end gap-2 animate-fade-in-up justify-start"><div className="max-w-[80%] rounded-xl p-3 bg-gray-100 text-gray-800"><div className="flex items-center space-x-1"><span className="typing-dot animate-pulse-fast"></span><span className="typing-dot animate-pulse-fast animation-delay-200"></span><span className="typing-dot animate-pulse-fast animation-delay-400"></span></div></div></div>}
+          </main>
         )}
+
+        <ChatFooter
+          isTranscriptVisible={isTranscriptVisible}
+          setIsTranscriptVisible={setIsTranscriptVisible}
+          inputMessage={inputMessage}
+          setInputMessage={setInputMessage}
+          handleSendMessage={handleSendMessage}
+          handleKeyDown={handleKeyDown}
+          isSending={isAiTyping} // Using isAiTyping as a proxy for isSending
+          isRecording={isRecording}
+          toggleRecording={toggleRecording}
+        /> 
       </div>
     </>
   );

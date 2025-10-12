@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "backend-fastapi"
+version = "0.1.1"
+description = "Backend base em FastAPI"
+authors = ["Samuel Carvalho <samuel@example.com>"]
+readme = "README.md"
+packages = [{ include = "app" }]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.0"
+uvicorn = {extras=["standard"], version="^0.30.0"}
+sqlmodel = "^0.0.22"
+sqlalchemy = "^2.0.35"
+alembic = "^1.13.2"
+psycopg = {extras=["binary"], version="^3.2.1"}
+pydantic-settings = "^2.4.0"
+python-jose = {extras=["cryptography"], version="^3.3.0"}
+passlib = {extras=["bcrypt"], version="^1.7.4"}
+loguru = "^0.7.2"
+httpx = "^0.27.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+pytest-asyncio = "^0.24.0"
+ruff = "^0.6.9"
+mypy = "^1.13.0"
+
+[tool.ruff]
+line-length = 100
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+warn_unused_ignores = true
+strict_optional = true
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

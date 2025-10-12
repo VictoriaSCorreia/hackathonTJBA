@@ -1,9 +1,8 @@
-import feather from 'feather-icons';
 import { useState } from 'react';
 
 
 export const Header = () => {
-      const [activePage, setActivePage] = useState('chat');
+      const [, setActivePage] = useState('chat');
 
 
 
