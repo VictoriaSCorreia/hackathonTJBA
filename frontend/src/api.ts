@@ -2,13 +2,20 @@
 import axios, { type AxiosInstance } from 'axios';
 
 // Em desenvolvimento usamos o proxy do Vite.
-// Mantemos a base como caminho relativo para
-// funcionar tanto dentro quanto fora de containers.
-const baseURL = `/api/v1`;
+// Também suportamos override via VITE_API_URL para apontar direto pro backend.
+// Mantemos a base como caminho relativo por padrão para funcionar dentro/fora de containers.
+const baseURL = (import.meta as any)?.env?.VITE_API_URL
+  ? `${(import.meta as any).env.VITE_API_URL.replace(/\/?$/,'')}/api/v1`
+  : `/api/v1`;
+
+// Tempo padrão de timeout aumentado para suportar a fase de resposta final
+// (chamada ao modelo pode levar >60s). Permitimos override via VITE_API_TIMEOUT_MS.
+const defaultTimeout = 180000; // 180 segundos
+const timeoutMs = Number((import.meta as any)?.env?.VITE_API_TIMEOUT_MS) || defaultTimeout;
 
 const api: AxiosInstance = axios.create({
   baseURL,
-  timeout: 10000, // 10 segundos
+  timeout: timeoutMs,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -53,5 +60,5 @@ export default api;
 // Log útil apenas em dev para depuração de baseURL
 if (import.meta.env.DEV) {
   // eslint-disable-next-line no-console
-  console.log('[api] baseURL =', api.defaults.baseURL);
+  console.log('[api] baseURL =', api.defaults.baseURL, 'timeoutMs =', timeoutMs);
 }

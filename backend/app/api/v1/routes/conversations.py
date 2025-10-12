@@ -114,13 +114,15 @@ def post_message(
                 # If heuristic fails, continue with final answer normally
                 pass
 
-            final = generate_final_answer(U0=U0, Qs=Qs, U1=U1, conversation_id=str(conv.id), k=5)
+            # Reduz k para acelerar RAG e resposta final
+            final = generate_final_answer(U0=U0, Qs=Qs, U1=U1, conversation_id=str(conv.id), k=3)
             assistant_text = final.get("text", "")
             assistant_msg = service.add_message(conversation_id=conv.id, role="assistant", content=assistant_text)
             return assistant_msg
         else:
             # Stage A: first pass -> generate 3 clarify questions
-            clarify_block = generate_clarify_questions(user_message=payload.content, k=5)
+            # Reduz k para acelerar primeira resposta
+            clarify_block = generate_clarify_questions(user_message=payload.content, k=3)
             assistant_msg = service.add_message(conversation_id=conv.id, role="assistant", content=clarify_block)
             return assistant_msg
     return saved_msg

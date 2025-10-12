@@ -37,11 +37,13 @@ def chat(req: ChatRequest) -> ChatResponse:
         try:
             if is_new_topic(U0, Qs, U1):
                 # Recomeça Etapa A
-                clar = generate_clarify_questions(user_message=U1, k=5)
+                # Reduz k para acelerar
+                clar = generate_clarify_questions(user_message=U1, k=3)
                 CHAT_STATE[conv_id] = {"phase": "clarify_sent", "U0": U1, "clarify": clar}
                 return ChatResponse(response_text=clar, citations=[], conversation_id=conv_id)
 
-            final = generate_final_answer(U0=U0, Qs=Qs, U1=U1, conversation_id=conv_id, k=5)
+            # Reduz k para acelerar
+            final = generate_final_answer(U0=U0, Qs=Qs, U1=U1, conversation_id=conv_id, k=3)
             # Limpa estado após resposta final
             CHAT_STATE.pop(conv_id, None)
             return ChatResponse(
@@ -56,7 +58,8 @@ def chat(req: ChatRequest) -> ChatResponse:
     else:
         # Etapa A: primeira passada
         try:
-            clar = generate_clarify_questions(user_message=req.user_message, k=5)
+            # Reduz k para acelerar
+            clar = generate_clarify_questions(user_message=req.user_message, k=3)
             CHAT_STATE[conv_id] = {"phase": "clarify_sent", "U0": req.user_message, "clarify": clar}
             return ChatResponse(response_text=clar, citations=[], conversation_id=conv_id)
         except Exception as e:
