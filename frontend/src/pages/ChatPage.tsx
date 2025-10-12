@@ -105,7 +105,6 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
     setIsAiTyping(true);
 
     try {
-      // Ensure we have a guest session and a conversation
       await ensureGuestSession();
       let convId = conversationId;
       if (!convId) {
@@ -114,7 +113,6 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
         setConversationId(convId);
       }
 
-      // Send user message to conversation
       const msgResp = await api.post(`/conversations/${convId}/messages`, {
         role: 'user',
         content: trimmed,
@@ -122,7 +120,6 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
 
       const assistantText: string | undefined = msgResp?.data?.content;
       if (assistantText) {
-        // Detect two-step clarify flow
         const qs = extractClarifyQuestions(assistantText);
         if (qs && qs.length) {
           const display = `Precisamos de alguns detalhes:\n\n1) ${qs[0]}\n2) ${qs[1]}\n3) ${qs[2]}\n\nResponda acima para continuar.`;
@@ -132,7 +129,6 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
           setWaitingClarification(true);
         } else {
           setMessages(prev => [...prev, { text: assistantText, sender: 'ai' }]);
-          // Auto-open transcript to show the assistant reply
           setIsTranscriptVisible(true);
           setWaitingClarification(false);
           await playAudioResponse(assistantText);
