@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import feather from 'feather-icons';
-import logo from "../assets/logo.png";
+import logo from '../assets/logo.png';
+import logotipo from '../assets/logotipo.png';
 import FeatureCard from '../Components/FeatureCard';
 import { SetActivePageProps } from '../App';
 
@@ -12,26 +13,17 @@ function LandingPage({ setActivePage }: SetActivePageProps) {
 
     return (
         <div className="bg-white text-gray-800 min-h-screen flex flex-col font-sans">
-            {/* Header */}
-            <header className="py-5 px-6">
+            <header className="py-2 px-6">
                 <div className="max-w-6xl mx-auto flex justify-between items-center">
-                    <div className="flex items-center gap-1">
-                        <img src={logo} className='h-20 w-20' alt="fala justa logo" />
-                        <h1 className="text-2xl font-bold tracking-wider text-gray-800">Fala Justa</h1>
+                    <div className="flex items-center gap-0">
+                        <img src={logo} className='h-35 w-35' alt="fala justa logo" />
+                        <img src={logotipo} className='h-35 w-35' alt="" />
                     </div>
-                    <button
-                        onClick={() => setActivePage('chat')}
-                        className="hidden sm:block bg-[#e7232e] hover:bg-opacity-90 text-white font-medium py-2 px-5 rounded-lg transition-colors"
-                    >
-                        Conversar
-                    </button>
                 </div>
             </header>
 
-            {/* Hero Section */}
-            <main className="flex-1 flex items-center justify-center px-4 py-12 md:py-20">
+            <main className="flex-1 flex items-center justify-center px-4 py-9 md:py-1">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    {/* Left Column: Text Content */}
                     <div className="text-center md:text-left">
                         <h2 className="text-3xl md:text-5xl lg:text-4xl font-extrabold leading-tight mb-4 animate-fade-in-up duration-1000">
                             Um chatbot que escuta para educar e educa para transformar.
@@ -39,9 +31,6 @@ function LandingPage({ setActivePage }: SetActivePageProps) {
                         <div className="text-lg md:text-xl text-gray-600 mb-10 animate-fade-in-up animation-delay-300 space-y-4">
                             <p>
                                 Sou um espaço de escuta, aprendizado e diálogo. Aqui, cada conversa é uma oportunidade de reconhecer atitudes, refletir sobre comportamentos e fortalecer a educação antirracista.
-                            </p>
-                            <p>
-                                Meu propósito é ajudar você a compreender o que é o racismo, identificar quando ele ocorre e mostrar caminhos para enfrentá-lo com respeito, empatia e informação.
                             </p>
                         </div>
                         <button

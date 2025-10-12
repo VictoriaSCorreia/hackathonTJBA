@@ -37,7 +37,7 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
   const [copiedMessageIndex, setCopiedMessageIndex] = useState<number | null>(null);
   const [isTranscriptVisible, setIsTranscriptVisible] = useState(false);
   const [conversationId, setConversationId] = useState<number | null>(null);
-  const [waitingClarification, setWaitingClarification] = useState(false);
+  const [, setWaitingClarification] = useState(false);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null); // This was missing
   const audioChunksRef = useRef<Blob[]>([]); // This was missing
