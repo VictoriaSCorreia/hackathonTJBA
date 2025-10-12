@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect } from 'react';
 import feather from 'feather-icons';
 import { marked } from 'marked';
@@ -15,7 +16,7 @@ export interface Message {
 }
 
 const INITIAL_MESSAGE: Message = {
-  text: "Hi assistant. You can talk to me by typing or using the microphone button below. How can I help you today?",
+  text: "Olá! Sou a Judi, sua assistente virtual dedicada a promover a educação antirracista. Estou aqui para ouvir suas experiências, oferecer suporte e compartilhar informações que possam ajudar na construção de um ambiente mais inclusivo e respeitoso. Sinta-se à vontade para conversar comigo sobre qualquer situação ou dúvida que você tenha. Juntos, podemos aprender e crescer em direção a uma sociedade mais justa e igualitária. Como posso ajudar você hoje?",
   sender: 'ai'
 };
 
@@ -57,7 +58,7 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
     try {
       localStorage.setItem('chatHistory', JSON.stringify(messages));
     } catch (error) {
-      console.error("Failed to save messages to local storage", error);
+      console.error("Falha em persistir mensagens na memória", error);
     }
   }, [messages]);
 
@@ -82,7 +83,6 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
     }
   };
 
-  // Helper: extract Q1/Q2/Q3 from a <clarify> block
   const extractClarifyQuestions = (text: string): string[] | null => {
     if (!text || !text.includes('<clarify')) return null;
     const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
@@ -136,7 +136,7 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
       }
     } catch (error) {
       console.error('Error sending message to backend:', error);
-      const errorMessage: Message = { text: "Sorry, I'm having trouble connecting. Please try again later.", sender: 'ai' };
+      const errorMessage: Message = { text: "Estaoms com problemas ao conectar com o servidor. Por favor, tente novamente", sender: 'ai' };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsAiTyping(false);
@@ -155,7 +155,7 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
 
     try {
       if (import.meta.env.VITE_STS_ENABLED !== 'true') {
-        const errorMessage: Message = { text: "Voice input is disabled.", sender: 'ai' };
+        const errorMessage: Message = { text: "Não conseguimos acessar seu microfone. Por favor, tente novamente", sender: 'ai' };
         setMessages(prev => [...prev, errorMessage]);
         return;
       }
@@ -173,7 +173,6 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
         const aiMessage: Message = { text: response.data.aiTranscript, sender: 'ai' };
         setMessages(prev => [...prev, userMessage, aiMessage]);
 
-        // Play the audio
         const audioUrl = response.data.audioUrl.startsWith('http')
           ? response.data.audioUrl
           : response.data.audioUrl.startsWith('/')
@@ -182,7 +181,6 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
         const audio = new Audio(audioUrl);
         audio.play();
       } else {
-        // Handle cases where the backend might not return all expected data
         const errorMessage: Message = { text: "Sorry, there was an issue with the response.", sender: 'ai' };
         setMessages(prev => [...prev, errorMessage]);
       }
@@ -191,7 +189,6 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
       const errorMessage: Message = { text: "Sorry, I couldn't process the audio. Please try again.", sender: 'ai' };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
-      // We set isAiTyping to false, but a true "is playing" state would be better
       setIsAiTyping(false);
     }
   };
@@ -220,7 +217,7 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
         setIsRecording(true);
       } catch (err) {
         console.error("Failed to get microphone access:", err);
-        alert("Microphone access is required for voice input. Please allow access and try again.");
+        alert("Precisamos do acesso ao seu microfone.");
       }
     }
   };
@@ -231,8 +228,7 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
 
   const handleCopyMessage = async (text: string, index: number) => {
     if (!navigator.clipboard) {
-      // Fallback for browsers that don't support the Clipboard API
-      alert("Sorry, your browser does not support copying to clipboard.");
+      alert("Não conseguimos copiar o texto para a área de transferência.");
       return;
     }
     try {
@@ -251,21 +247,21 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
       <Modal
         isOpen={isClearHistoryModalOpen}
         onClose={() => setClearHistoryModalOpen(false)}
-        onConfirm={() => { 
-          setMessages([INITIAL_MESSAGE]); 
+        onConfirm={() => {
+          setMessages([INITIAL_MESSAGE]);
           setConversationId(null);
           setWaitingClarification(false);
-          setClearHistoryModalOpen(false); 
+          setClearHistoryModalOpen(false);
         }} // Reset chat + conversation state
-        title="Clear Chat History"
-        confirmText="Delete"
+        title="Apagar histórico do chat"
+        confirmText="Deletar"
       >
-        <p>Are you sure you want to delete the entire chat history? This action cannot be undone.</p>
+        <p>Você tem certeza que deseja apagar o histórico do chat? Essa ação é irreversível.</p>
       </Modal>
       <div className="bg-gray-50 text-gray-800 h-screen flex flex-col">
         <ChatHeader
-          onClearHistory={handleClearHistory} // Assuming ChatHeader exists and uses this
-          onGoToSettings={() => setActivePage('settings')} // Assuming ChatHeader exists and uses this
+          onClearHistory={handleClearHistory} 
+          onGoToSettings={() => setActivePage('settings')} 
         />
 
         {!isTranscriptVisible ? (
@@ -314,10 +310,10 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
           setInputMessage={setInputMessage}
           handleSendMessage={handleSendMessage}
           handleKeyDown={handleKeyDown}
-          isSending={isAiTyping} // Using isAiTyping as a proxy for isSending
+          isSending={isAiTyping} 
           isRecording={isRecording}
           toggleRecording={toggleRecording}
-        /> 
+        />
       </div>
     </>
   );
