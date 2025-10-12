@@ -5,6 +5,7 @@ import logotipo from '../assets/logotipo.png';
 import FeatureCard from '../Components/FeatureCard';
 import { SetActivePageProps } from '../App';
 
+
 function LandingPage({ setActivePage }: SetActivePageProps) {
     useEffect(() => {
         // This needs to be called anytime new icons are rendered.
