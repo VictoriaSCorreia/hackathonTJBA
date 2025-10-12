@@ -191,39 +191,30 @@ function ChatPage({ setActivePage }) {
         setMessages(prev => [...prev, errorMessage]);
         return;
       }
+
+      // 1) Send audio to backend for STT only
       const formData = new FormData();
       formData.append('audio', audioBlob, 'recording.webm');
 
-      const response = await api.post('/speech-to-speech', formData, {
+      const sttResp = await api.post('/speech-to-text', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         responseType: 'json',
       });
 
-      if (response.data && response.data.audioUrl && response.data.userTranscript && response.data.aiTranscript) {
-        // Add the actual transcripts to the chat
-        const userMessage: Message = { text: response.data.userTranscript, sender: 'user' };
-        const aiMessage: Message = { text: response.data.aiTranscript, sender: 'ai' };
-        setMessages(prev => [...prev, userMessage, aiMessage]);
-
-        // Play the audio
-        const audioUrl = response.data.audioUrl.startsWith('http')
-          ? response.data.audioUrl
-          : response.data.audioUrl.startsWith('/')
-            ? response.data.audioUrl
-            : `/api${response.data.audioUrl}`; // melhor esforço
-        const audio = new Audio(audioUrl);
-        audio.play();
-      } else {
-        // Handle cases where the backend might not return all expected data
-        const errorMessage: Message = { text: "Sorry, there was an issue with the response.", sender: 'ai' };
+      const transcript: string | undefined = sttResp?.data?.transcript;
+      if (!transcript) {
+        const errorMessage: Message = { text: "Não consegui transcrever o áudio. Tente novamente.", sender: 'ai' };
         setMessages(prev => [...prev, errorMessage]);
+        return;
       }
+
+      // 2) Feed transcript as user message into the normal chat flow
+      await handleSendMessage(transcript);
     } catch (error) {
       console.error('Error sending audio to backend:', error);
       const errorMessage: Message = { text: "Sorry, I couldn't process the audio. Please try again.", sender: 'ai' };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
-      // We set isAiTyping to false, but a true "is playing" state would be better
       setIsAiTyping(false);
     }
   };
@@ -248,8 +239,15 @@ function ChatPage({ setActivePage }) {
           stream.getTracks().forEach(track => track.stop()); // Stop the microphone track
         };
 
+        // Start recording and enforce 30s limit
         mediaRecorderRef.current.start();
         setIsRecording(true);
+        setTimeout(() => {
+          if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+            mediaRecorderRef.current.stop();
+            setIsRecording(false);
+          }
+        }, 30_000);
       } catch (err) {
         console.error("Failed to get microphone access:", err);
         alert("Microphone access is required for voice input. Please allow access and try again.");
