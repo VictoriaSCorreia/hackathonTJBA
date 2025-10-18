@@ -16,9 +16,7 @@ const timeoutMs = Number((import.meta as any)?.env?.VITE_API_TIMEOUT_MS) || defa
 const api: AxiosInstance = axios.create({
   baseURL,
   timeout: timeoutMs,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  // Do NOT set a global Content-Type here; let Axios/browser infer it
 });
 
 // Interceptor para anexar o guest_id a cada requisição
@@ -32,6 +30,25 @@ api.interceptors.request.use((config) => {
   } catch (e) {
     // Em ambientes sem localStorage, apenas ignore
   }
+
+  // Se o corpo da requisição for FormData, remova qualquer Content-Type
+  // para que o browser defina 'multipart/form-data' com boundary automaticamente.
+  if (typeof FormData !== 'undefined' && config.data instanceof FormData) {
+    if (config.headers) {
+      delete (config.headers as any)['Content-Type'];
+    }
+  } else {
+    // Para requisições com corpo JSON, garanta Content-Type apropriado se não definido
+    const method = String(config.method || '').toLowerCase();
+    const hasBody = ['post', 'put', 'patch'].includes(method);
+    if (hasBody) {
+      const ct = (config.headers as any)?.['Content-Type'];
+      if (!ct) {
+        (config.headers as any)['Content-Type'] = 'application/json';
+      }
+    }
+  }
+
   return config;
 });
 

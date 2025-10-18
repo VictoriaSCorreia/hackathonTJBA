@@ -1,6 +1,6 @@
 FROM python:3.12-slim
 ENV POETRY_VERSION=1.8.3 PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
-RUN apt-get update && apt-get install -y build-essential curl && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y build-essential curl ffmpeg flac && rm -rf /var/lib/apt/lists/*
 RUN curl -sSL https://install.python-poetry.org | python3 - && ln -s /root/.local/bin/poetry /usr/local/bin/poetry
 WORKDIR /app
 COPY pyproject.toml poetry.lock* /app/

@@ -27,7 +27,18 @@ def _run_ffmpeg_convert_to_wav(src_path: str, dst_path: str) -> None:
         "16000",
         dst_path,
     ]
-    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    try:
+        # Capture stderr so we can surface codec errors (e.g., webm/opus unsupported)
+        completed = subprocess.run(
+            cmd,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+    except subprocess.CalledProcessError as e:
+        msg = e.stderr or str(e)
+        raise RuntimeError(f"ffmpeg falhou ao converter o arquivo. Detalhes: {msg}")
 
 
 def _guess_ext(filename: str) -> str:

@@ -6,7 +6,7 @@ FROM python:3.12-alpine
 # Adicionamos também 'libffi-dev' que pode ser necessário para algumas libs
 ENV POETRY_VERSION=1.8.3 PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 # Add system deps including Postgres client libs for psycopg and ffmpeg for audio route
-RUN apk add --no-cache build-base curl libffi-dev ffmpeg postgresql-libs postgresql-dev
+RUN apk add --no-cache build-base curl libffi-dev ffmpeg flac postgresql-libs postgresql-dev
 
 # O resto do processo é o mesmo
 RUN curl -sSL https://install.python-poetry.org | python3 - && ln -s /root/.local/bin/poetry /usr/local/bin/poetry

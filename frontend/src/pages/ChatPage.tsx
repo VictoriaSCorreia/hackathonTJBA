@@ -21,6 +21,10 @@ const INITIAL_MESSAGE: Message = {
 };
 
 function ChatPage({ setActivePage }: SetActivePageProps) {
+  // STT flag: default enabled if unset; accept both VITE_STS_ENABLED (legacy) and VITE_STT_ENABLED
+  const sttEnv = (import.meta as any)?.env?.VITE_STS_ENABLED ?? (import.meta as any)?.env?.VITE_STT_ENABLED;
+  const sttEnabled = sttEnv === undefined ? true : String(sttEnv).toLowerCase() === 'true';
+
   const [messages, setMessages] = useState<Message[]>(() => {
     try {
       const savedMessages = localStorage.getItem('chatHistory');
@@ -162,22 +166,32 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
     setIsAiTyping(true);
 
     try {
-      if (import.meta.env.VITE_STS_ENABLED !== 'true') {
-        const errorMessage: Message = { text: "Não conseguimos acessar seu microfone. Por favor, tente novamente", sender: 'ai' };
+      if (!sttEnabled) {
+        const errorMessage: Message = { text: "Transcrição de voz está desativada neste ambiente. Defina VITE_STS_ENABLED=true e reinicie.", sender: 'ai' };
         setMessages(prev => [...prev, errorMessage]);
         return;
       }
 
-      // 1) Send audio to backend for STT only
+      // Ensure guest + conversation exist before uploading (so backend can file it under the conversation)
+      await ensureGuestSession();
+      let convId = conversationId;
+      if (!convId) {
+        const convResp = await api.post('/conversations', {});
+        convId = convResp?.data?.id;
+        setConversationId(convId);
+      }
+
+      // 1) Send audio to backend for STT and storage
       const formData = new FormData();
       formData.append('audio', audioBlob, 'recording.webm');
+      if (convId) formData.append('conversation_id', String(convId));
 
       const sttResp = await api.post('/speech-to-text', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+        // Deixe o Axios definir o Content-Type com boundary correto
         responseType: 'json',
       });
 
-      const transcript: string | undefined = sttResp?.data?.transcript;
+      const transcript: string | undefined = (sttResp?.data?.transcript || '')?.toString().trim();
       if (!transcript) {
         const errorMessage: Message = { text: "Não consegui transcrever o áudio. Tente novamente.", sender: 'ai' };
         setMessages(prev => [...prev, errorMessage]);
@@ -186,9 +200,17 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
 
       // 2) Feed transcript as user message into the normal chat flow
       await handleSendMessage(transcript);
-    } catch (error) {
-      console.error('Error sending audio to backend:', error);
-      const errorMessage: Message = { text: "Sorry, I couldn't process the audio. Please try again.", sender: 'ai' };
+    } catch (error: any) {
+      const status = error?.response?.status;
+      const detail = error?.response?.data?.detail || error?.message || 'Erro desconhecido';
+      console.error('Error sending audio to backend:', { status, detail, error });
+      let text = "Não foi possível processar o áudio. Tente novamente.";
+      if (status === 415) {
+        text = `Formato/codec de áudio não suportado pelo servidor: ${String(detail)}`;
+      } else if (status >= 500) {
+        text = `Erro no servidor ao transcrever o áudio: ${String(detail)}`;
+      }
+      const errorMessage: Message = { text, sender: 'ai' };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsAiTyping(false);
