@@ -12,6 +12,7 @@ from fastapi.responses import FileResponse
 
 from app.api.deps import get_current_guest
 from app.services.speech_to_text import transcribe_audio_file
+from app.services.text_preprocessor import preprocess_transcript
 
 
 router = APIRouter()
@@ -77,8 +78,13 @@ async def speech_to_text(
         # Keep the saved file, but reject the request
         raise HTTPException(status_code=400, detail=f"Áudio excede {MAX_SECONDS:.0f}s (duração ~{duration:.1f}s)")
 
+    # Optional preprocessing (LLM ou regras simples), controlado por env STT_PREPROCESS_MODE
+    cleaned, raw, mode = preprocess_transcript(transcript)
+
     return {
-        "transcript": transcript,
+        "transcript": cleaned,
+        "raw_transcript": raw,
+        "transcript_preprocess_mode": mode,
         "duration": duration,
         "stored": True,
         "audio_filename": stored_name,

@@ -30,6 +30,8 @@ services:
       - APP_ENV=dev
       # Override at runtime: `COHERE_API_KEY=... docker compose up`
       - COHERE_API_KEY=0tPz7wM2BM7abQ6DlC2Hfmk3QLPc8Oa9kvXK4lJa
+      # Pré-processamento de transcrições de voz (off|basic|llm)
+      - STT_PREPROCESS_MODE=llm
     ports:
       - "8000:8000"
     restart: unless-stopped
