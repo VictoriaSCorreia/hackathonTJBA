@@ -31,7 +31,15 @@ services:
       # Override at runtime: `COHERE_API_KEY=... docker compose up`
       - COHERE_API_KEY=0tPz7wM2BM7abQ6DlC2Hfmk3QLPc8Oa9kvXK4lJa
       # Pré-processamento de transcrições de voz (off|basic|llm)
-      - STT_PREPROCESS_MODE=llm
+      - STT_PREPROCESS_MODE=off
+      # TTS (Text-to-Speech) configuration
+      # Provide your OpenAI key via host env or .env
+      - TTS_API_KEY=tts-31e08ca29ff4f9ec925ef7148a9976f9
+      # Optionally override defaults below
+      - TTS_URL=https://api.ttsopenai.com/uapi/v1/text-to-speech
+      - TTS_MODEL=tts-1
+      - TTS_VOICE_ID=OA001
+      - TTS_SPEED=1
     ports:
       - "8000:8000"
     restart: unless-stopped
@@ -57,6 +65,8 @@ services:
       - BACKEND_URL=http://api:8000
       # Optionally forward ElevenLabs key from host env
       - VITE_ELEVENLABS_API_KEY=${VITE_ELEVENLABS_API_KEY:-}
+      # Enable TTS playback in the UI (calls /api/v1/text-to-speech)
+      - VITE_TTS_ENABLED=true
     volumes:
       - ./frontend:/app
       # Keep node_modules inside a named volume for speed (esp. on Windows)

@@ -7,13 +7,21 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 import mimetypes
 
-from fastapi import APIRouter, File, Form, HTTPException, UploadFile, Depends
-from fastapi.responses import FileResponse
+from fastapi import (
+    APIRouter, File, Form, HTTPException, UploadFile, Depends, Request
+)
+from fastapi.responses import FileResponse, Response, JSONResponse # Response é necessário
+from pydantic import BaseModel
 
 from app.api.deps import get_current_guest
 from app.services.speech_to_text import transcribe_audio_file
 from app.services.text_preprocessor import preprocess_transcript
 
+# --- IMPORTE O NOVO SERVIÇO E REMOVA OS ANTIGOS ---
+from app.services.text_to_speech import (
+    generate_speech_sync,
+    TTSServiceError,
+)
 
 router = APIRouter()
 
@@ -122,3 +130,47 @@ def get_audio(
         filename=filename,
     )
 
+
+class TTSRequest(BaseModel):
+    text: str
+    voice_id: Optional[str] = None
+    # Removido: speed e model (KittenTTS usa 'voice' e o modelo é fixo na config)
+
+
+@router.post("/text-to-speech", 
+            summary="Gera áudio (WAV) a partir de texto de forma síncrona",
+            # Define o tipo de resposta como audio/wav
+            responses={
+                200: {
+                    "content": {"audio/wav": {}},
+                    "description": "Arquivo de áudio WAV gerado com sucesso."
+                }
+            })
+def text_to_speech(
+    body: TTSRequest,
+    current_user=Depends(get_current_guest), # Mantém a autenticação
+):
+    """
+    Converte texto em áudio (WAV) e retorna o arquivo de áudio diretamente.
+    
+    Esta rota é síncrona e pode demorar alguns segundos para responder.
+    """
+    if not body.text or not body.text.strip():
+        raise HTTPException(status_code=400, detail="Texto para TTS é obrigatório")
+
+    try:
+        # Chama o novo serviço síncrono
+        audio_bytes, media_type = generate_speech_sync(
+            body.text,
+            voice_id=body.voice_id,
+        )
+        
+        # Retorna o áudio diretamente no corpo da resposta
+        return Response(content=audio_bytes, media_type=media_type)
+
+    except TTSServiceError as e:
+        # Erro de negócio (ex: modelo falhou)
+        raise HTTPException(status_code=500, detail=f"Falha ao gerar TTS: {e}")
+    except Exception as e:
+        # Erro inesperado
+        raise HTTPException(status_code=500, detail=f"Erro interno no servidor de TTS: {e}")

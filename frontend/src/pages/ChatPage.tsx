@@ -76,12 +76,38 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
     // Recurso opcional: habilite via VITE_TTS_ENABLED=true
     if (import.meta.env.VITE_TTS_ENABLED !== 'true') return;
     try {
-      const response = await api.post('/text-to-speech', { text }, { responseType: 'blob' });
-      if (response.data) {
-        const audioUrl = URL.createObjectURL(response.data as unknown as Blob);
-        const audio = new Audio(audioUrl);
-        audio.play();
+      // 1) Cria job de TTS (assíncrono)
+      const createResp = await api.post('/text-to-speech', { text });
+      const uuid: string | undefined = createResp?.data?.uuid;
+      if (!uuid) return;
+
+      // 2) Polling até o job ficar disponível
+      const started = Date.now();
+      const timeoutMs = 120_000; // 2 min
+      const intervalMs = 1200;
+      // Usa a rota local para reproduzir (servido do backend, com proxy se necessário)
+      const streamUrl = `/api/v1/audio/ttsopenai/${uuid}`;
+
+      while (Date.now() - started < timeoutMs) {
+        try {
+          const statusResp = await api.get(`/tts-jobs/${uuid}`);
+          const status = String(statusResp?.data?.status || '').toLowerCase();
+          const hasAnyUrl = Boolean(statusResp?.data?.local_url || statusResp?.data?.media_url);
+          if (status === 'success' || hasAnyUrl) {
+            const audio = new Audio(streamUrl);
+            await audio.play();
+            return;
+          }
+          if (status === 'failed') {
+            console.warn('TTS job failed:', statusResp?.data?.error);
+            return;
+          }
+        } catch (err) {
+          // Ignora erros transitórios de polling
+        }
+        await new Promise(res => setTimeout(res, intervalMs));
       }
+      console.warn('Timeout aguardando TTS job');
     } catch (error) {
       console.error('Error fetching TTS audio:', error);
     }
@@ -139,6 +165,8 @@ function ChatPage({ setActivePage }: SetActivePageProps) {
           // Auto-open transcript to make the questions visible
           setIsTranscriptVisible(true);
           setWaitingClarification(true);
+          // Também tocar áudio para o bloco de esclarecimentos
+          await playAudioResponse(display);
         } else {
           setMessages(prev => [...prev, { text: assistantText, sender: 'ai' }]);
           setIsTranscriptVisible(true);
