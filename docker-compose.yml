@@ -32,14 +32,6 @@ services:
       - COHERE_API_KEY=0tPz7wM2BM7abQ6DlC2Hfmk3QLPc8Oa9kvXK4lJa
       # Pré-processamento de transcrições de voz (off|basic|llm)
       - STT_PREPROCESS_MODE=off
-      # TTS (Text-to-Speech) configuration
-      # Provide your OpenAI key via host env or .env
-      - TTS_API_KEY=tts-31e08ca29ff4f9ec925ef7148a9976f9
-      # Optionally override defaults below
-      - TTS_URL=https://api.ttsopenai.com/uapi/v1/text-to-speech
-      - TTS_MODEL=tts-1
-      - TTS_VOICE_ID=OA001
-      - TTS_SPEED=1
     ports:
       - "8000:8000"
     restart: unless-stopped
@@ -80,3 +72,4 @@ services:
 volumes:
   pgdata:
   frontend_node_modules:
+

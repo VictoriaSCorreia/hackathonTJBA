@@ -29,7 +29,8 @@ kittentts = {url = "https://github.com/KittenML/KittenTTS/releases/download/0.1/
 # Force 'torch' a usar a fonte "pytorch_cpu" que definimos acima
 torch = { version = "*", source = "pytorch_cpu" }
 # Adicione 'onnxruntime' explicitamente (a outra dependência principal do KittenTTS)
-onnxruntime = "*"
+onnxruntime = "1.18.*"
+numpy = "1.26.*"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"

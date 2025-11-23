@@ -8,8 +8,8 @@ class Settings(BaseSettings):
     # Preprocessamento do texto de transcrição: 'off' | 'basic' | 'llm'
     STT_PREPROCESS_MODE: str = "llm"
 
-    # Modelo KittenTTS (ex: "KittenML/kitten-tts-nano-0.2")
-    KITTEN_TTS_MODEL: str = "KittenML/kitten-tts-nano-0.2"
+    # Modelo KittenTTS (ex: "KittenML/kitten-tts-nano-0.1")
+    KITTEN_TTS_MODEL: str = "KittenML/kitten-tts-nano-0.1"
     # Voz padrão do KittenTTS (ex: 'expr-voice-2-f' do seu exemplo)
     KITTEN_TTS_VOICE_ID: str = "expr-voice-2-f"
     # Sample rate que o KittenTTS produz (do seu exemplo)
